@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 20:12:43 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 18:35:02 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,28 +15,48 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "asm_struct.h"
 
-int		err_code(int code)
+int		err_code(int code, char *msg)
 {
 	if (code == 1)
-		printf("Usage: ./asm <file>.s\n");
+		printf("Usage: %s <file>.s\n", msg);
+	if (code == 2)
+		printf("Can't read source file %s\n", msg);
+	if (code == 3)
+		printf("Empty source file %s\n", msg);
 	return (1);
 }
 
-int		main(int argc, char const *argv[])
+char	*read_asm(int fd, off_t size)
+{
+	char	file[size + 1];
+	if (size)
+	{
+		lseek(fd, 0, SEEK_SET);
+		read(fd, file, (size_t)size);
+		return (ft_strdup(file));
+	}
+	return (NULL);
+}
+
+int		main(int argc, char *argv[])
 {
 	int fd;
-	off_t size;
+	char *file;
 
 	if (argc != 2)
-		return (err_code(1));
+		return (err_code(1, argv[0]));
+	/*
+	**	Check extension
+	*/
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (err_code(1));
-	size = lseek(fd, 0, SEEK_END);
-	lseek(fd, 0, SEEK_SET);
-	char file[size];
-	read(fd, file, (size_t)size);
-	printf("%s", file);
+		return (err_code(2, argv[1]));
+	file = read_asm(fd, lseek(fd, 0, SEEK_END));
+	if (file)
+		printf("%s", file);
+	else
+		return(err_code(3, argv[1]));
     return (0);
 }

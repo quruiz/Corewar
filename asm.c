@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 18:35:02 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 12:43:48 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,11 +45,8 @@ int		main(int argc, char *argv[])
 	int fd;
 	char *file;
 
-	if (argc != 2)
+	if (argc != 2 /* || Check extension */)
 		return (err_code(1, argv[0]));
-	/*
-	**	Check extension
-	*/
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (err_code(2, argv[1]));

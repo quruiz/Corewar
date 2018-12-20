@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 
-int		byte_swap_int32(int val)
+int		swap_int32(int val)
 {
 	int tmp;
 
@@ -17,16 +19,25 @@ short	swap_int16(short val)
 
 int		main()
 {
+	system("rm test");
+	system("touch test");
 	int		fd = open("test", O_WRONLY);
-	unsigned int i = 0xdeadbeef;
+
+	unsigned int i = 0x00ea83f3;
 	int j = (int)i;
+
 	unsigned short si = 65263;
 	short sj = (short)si;
 
-//	j = swap_int32(j);
-//	write(fd, &j, 4);
-
+	j = swap_int32(j);
+	write(fd, &j, 4);
+	write(fd, "Bonjour", 7);
+	lseek(fd, 121, SEEK_CUR);
+	write(fd, &j, 4);
+	lseek(fd, 5, SEEK_SET);
+	write(fd, "a", 1);
 	// sj = swap_int16(sj);
-	printf("%hd", sj);
-	write(fd, &sj, 2);
+	// write(fd, &sj, 2);
+
+	/* 8 - (PROG_NAME_LENGTH % 8) */
 }

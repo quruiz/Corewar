@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 18:22:15 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 17:46:31 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,15 @@ enum				e_type
 	COMMENT
 };
 
+typedef struct		s_asm
+{
+	char			*raw_file;
+	char			**file;
+	int				input_fd;
+	int				output_fd;
+	struct s_code	*code;
+}					t_asm;
+
 typedef struct		s_header
 {
 	unsigned int	magic;
@@ -36,11 +45,13 @@ typedef struct		s_code
 {
 	enum e_type		type;
 	short			size;
-	int				line;
+	int				num_line;
 	char			*raw_line;
-	char			param[4];
 	off_t			cursor;
 	struct s_code	*next;
 }					t_code;
+
+int					err_code(int code, char *msg);
+int					read_file(t_asm **env, char **arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/20 17:46:31 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/22 16:22:40 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ typedef struct		s_asm
 	char			**file;
 	int				input_fd;
 	int				output_fd;
+	struct s_header	*header;
 	struct s_code	*code;
 }					t_asm;
 

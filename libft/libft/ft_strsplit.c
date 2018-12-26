@@ -6,82 +6,55 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:13 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/10 17:42:52 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/25 19:23:44 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_nbr_words(char *str, char c)
+static int	count_words(char const *s, char c)
 {
-	int		nbr_wrd;
 	int		i;
+	int		nb_words;
 
-	nbr_wrd = 0;
 	i = 0;
-	if (str[0] == '\0')
-		return (0);
-	while (str[i] != '\0')
+	nb_words = 0;
+	while (s[i])
 	{
-		while (str[i] == c)
+		while (s[i] && s[i] == c)
 			i++;
-		if (str[i] >= 33 && str[i] <= 126)
-			nbr_wrd++;
-		while (str[i] != c && str[i])
+		if (s[i] != c)
+			nb_words++;
+		while (s[i] && s[i] != c)
 			i++;
 	}
-	return (nbr_wrd);
+	return (nb_words);
 }
 
-static int		ft_nbr_ltr(char *str, char c)
+char		**ft_strsplit(char const *s, char c)
 {
-	int		nb;
-
-	nb = 0;
-	while (str[nb] != c && str[nb])
-		nb++;
-	return (nb);
-}
-
-static void		ft_cpy(char *src, char *dest, int lenght)
-{
+	char	**split;
+	char	*tmp;
 	int		i;
+	int		cursor;
+	int		nb_words;
 
 	i = 0;
-	while (i < lenght)
+	cursor = 0;
+	nb_words = count_words(s, c);
+	if (!(split = (char **)ft_memalloc(sizeof(char *) * (nb_words + 1))))
+		return (NULL);
+	while (i < nb_words)
 	{
-		dest[i] = src[i];
+		tmp = ft_strchr(s + cursor, c);
+		if (!tmp)
+			tmp = ft_strchr(s + cursor, '\0');
+		split[i] = ft_strsub(s, cursor, (tmp - (s + cursor)));
+		cursor = (tmp - s);
+		while (s[cursor] && s[cursor] == c)
+			cursor++;
 		i++;
 	}
-	dest[i] = '\0';
-}
-
-char			**ft_strsplit(char const *str, char c)
-{
-	int		nbr_wrd;
-	char	**tab;
-	int		i;
-	int		j;
-	int		ltr;
-
-	i = 0;
-	j = -1;
-	if (str == NULL)
-		return (NULL);
-	nbr_wrd = ft_nbr_words((char *)str, c);
-	if (!(tab = (char **)malloc(sizeof(char *) * (nbr_wrd + 1))))
-		return (NULL);
-	while (++j < nbr_wrd)
-	{
-		while (str[i] == c)
-			i++;
-		ltr = ft_nbr_ltr((char *)str + i, c);
-		if (!(tab[j] = (char *)malloc(sizeof(char) * (ltr + 1))))
-			return (NULL);
-		ft_cpy((char *)str + i, tab[j], ltr);
-		i = i + ltr;
-	}
-	tab[nbr_wrd] = 0;
-	return (tab);
+	return (split);
 }

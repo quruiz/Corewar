@@ -20,10 +20,12 @@ short	swap_int16(short val)
 
 int		main()
 {
-	// system("rm test");
-	// system("touch test");
-	// int		fd = open("test", O_WRONLY);
+	system("rm test");
+	system("touch test");
+	int		fd = open("test", O_WRONLY);
 
+	unsigned char	str[] = {0x06, 0x64, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01};
+	write(fd, str, 8);
 	// unsigned int i = 0x00ea83f3;
 	// int j = (int)i;
 
@@ -42,6 +44,4 @@ int		main()
 
 	/* 8 - (PROG_NAME_LENGTH % 8) */
 
-	char	str[] = "Salut comment  ca va gitan ?   bite";
-	ft_putsplit(ft_strsplit(str, ' '));
 }

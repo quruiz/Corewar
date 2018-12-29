@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/15 15:55:21 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/15 15:56:27 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/27 18:04:47 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,6 @@ int		ft_bswap_int32(int val)
 {
 	int tmp;
 
-	tmp = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF ); 
+	tmp = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
 	return (tmp << 16) | ((tmp >> 16) & 0xFFFF);
 }

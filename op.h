@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 18:22:29 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/28 20:25:21 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,18 @@ typedef char	t_arg_type;
 # define T_DIR					2
 # define T_IND					4
 # define T_LAB					8
+
+typedef struct	s_op
+{
+    char		*name;
+    int			nb_param;
+    char		param[4];
+    int			op_code;
+    int			cycles;
+    char		*description;
+	int			acb;
+	int			label_size;
+}				t_op;
 
 /*
 **

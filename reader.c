@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/20 15:28:18 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/22 18:12:14 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/27 18:16:17 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,6 @@ int		read_file(t_asm **env, char **arg)
 		}
 	}
 	(*env)->raw_file = file;						// stock le fichier lu dans la structure
-	(*env)->file = ft_strsplit(file, '\n');
+	(*env)->file = clean_split(ft_strsplit(file, '\n'));
 	return (1);
 }

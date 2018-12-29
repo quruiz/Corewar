@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/22 16:22:40 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/28 20:18:30 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,10 +45,13 @@ typedef struct		s_header
 typedef struct		s_code
 {
 	enum e_type		type;
-	short			size;
-	int				num_line;
-	char			*raw_line;
-	off_t			cursor;
+	int				op_code;
+	short			param_byte;				// octet de codage
+	void			*params[4];				// parametres
+	short			size;					// nombre d'octets de l'instruction
+	int				nb_line;				// Numero de ligne
+	char			*line;
+	off_t			label_cursor;			// emplacement du label pour lseek 
 	struct s_code	*next;
 }					t_code;
 

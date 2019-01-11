@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/02 16:30:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 18:04:48 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,45 +17,43 @@
 # include "op.h"
 # include "../libft/libft/libft.h"
 
-enum				e_type
-{
-	OPCODE,
-	LABEL,
-	COMMENT
-};
-
 typedef struct		s_asm
 {
 	char			*raw_file;
 	char			**file;
+	int				i;
 	int				input_fd;
 	int				output_fd;
 	struct s_header	*header;
-	struct s_code	*code;
+	struct s_champ	*champ;
 }					t_asm;
 
-typedef struct		s_header
+typedef struct		s_champ
 {
-	unsigned int	magic;
-	char			prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int	prog_size;
-	char			comment[COMMENT_LENGTH + 1];
-}					t_header;
+	int				type;
+	char			*line;
+	int				nb_line;
+	struct s_label	*label;
+	struct s_code	*code;
+	struct s_code	*next;
+}					t_champ;
+
+typedef struct		s_label
+{
+	char			*label_name;
+	off_t			cursor;
+}					t_label;
 
 typedef struct		s_code
 {
-	enum e_type		type;
-	int				op_code;
-	short			param_byte;				// octet de codage
-	void			*params[4];				// parametres
-	short			size;					// nombre d'octets de l'instruction
-	int				nb_line;				// Numero de ligne
-	char			*line;
-	off_t			label_cursor;			// emplacement du label pour lseek 
-	struct s_code	*next;
+	struct s_op		*op_tab;
+	int				size;
+	char			**params;
+	unsigned char	*code;
 }					t_code;
 
 int					err_code(int code, char *msg);
 int					read_file(t_asm **env, char **arg);
+int					get_header(t_asm *env);
 
 #endif

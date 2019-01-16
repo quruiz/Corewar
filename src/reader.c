@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/20 15:28:18 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 18:22:34 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 19:37:18 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,10 @@ int		read_file(t_asm *env)
 		if (*line == '#' || ft_str_is_empty(line))
 			free(line);
 		else if (!env->header)
-			get_header(env, line);
+		{
+			if (!get_header(env, line))
+				return (0);
+		}
 		env->error_line++;
 	}
 	return (1);
@@ -42,7 +45,7 @@ int		read_file(t_asm *env)
 int		init_read(t_asm **env, char **arg)
 {
 	if (!check_extension(arg[1]))
-		return (err_code(1, *env));
+		return (err_code(1, NULL));
 	if (!(*env = ft_memalloc(sizeof(t_asm))))
 		return (err_code(0, NULL));
 	(*env)->name = ft_strsub(arg[1], 0, (ft_strlen(arg[1]) - 1));

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:33 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/27 18:06:26 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 18:23:00 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <wchar.h>
+# include "../get_next_line/get_next_line.h"
 
 typedef struct	s_list
 {
@@ -128,4 +129,5 @@ char			*ft_uitoa(uintmax_t n);
 char			**ft_split_whitespaces(char const *str);
 short			ft_bswap_int16(short val);
 int				ft_bswap_int32(int val);
+int     		ft_str_is_empty(char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 18:04:48 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 16:56:43 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,24 +19,23 @@
 
 typedef struct		s_asm
 {
-	char			*raw_file;
-	char			**file;
-	int				i;
+	char			*name;
 	int				input_fd;
 	int				output_fd;
+	int				error_line;
 	struct s_header	*header;
 	struct s_champ	*champ;
 }					t_asm;
 
-typedef struct		s_champ
+typedef struct		s_code
 {
 	int				type;
 	char			*line;
 	int				nb_line;
 	struct s_label	*label;
-	struct s_code	*code;
+	struct s_cmd	*code;
 	struct s_code	*next;
-}					t_champ;
+}					t_code;
 
 typedef struct		s_label
 {
@@ -44,16 +43,16 @@ typedef struct		s_label
 	off_t			cursor;
 }					t_label;
 
-typedef struct		s_code
+typedef struct		s_cmd
 {
 	struct s_op		*op_tab;
 	int				size;
 	char			**params;
 	unsigned char	*code;
-}					t_code;
+}					t_cmd;
 
-int					err_code(int code, char *msg);
-int					read_file(t_asm **env, char **arg);
-int					get_header(t_asm *env);
+int					err_code(int code, t_asm *env);
+int					init_read(t_asm **env, char **arg);
+int					get_header(t_asm *env, char *line);
 
 #endif

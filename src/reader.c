@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/20 15:28:18 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 17:46:05 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 18:22:34 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,69 +15,43 @@
 
 int		check_extension(char *file)
 {
-	char	*dot;
-	int		fd;
+	int		len;
+	int		start;
 
-	dot = ft_strrchr(file, '.');
-	if (!dot)
-		return (1);
-	if (dot[1] == 's' && !dot[2])
+	len = ft_strlen(file);
+	if (!(file[len - 1] == 's' && file[len - 2] == '.'))
 		return (0);
 	return (1);
 }
 
-char	*read_asm(int fd, off_t size)
+int		read_file(t_asm *env)
 {
-	char	file[size + 1];
+	char	*line;
 
-	if (size)
+	while (get_next_line(env->input_fd, &line) > 0)
 	{
-		lseek(fd, 0, SEEK_SET);
-		read(fd, file, (size_t)size);
-		return (ft_strdup(file));
+		if (*line == '#' || ft_str_is_empty(line))
+			free(line);
+		else if (!env->header)
+			get_header(env, line);
+		env->error_line++;
 	}
-	return (NULL);
+	return (1);
 }
 
-char	**clean_split(char **split)
+int		init_read(t_asm **env, char **arg)
 {
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (split[i])
-	{
-		tmp = split[i];
-		split[i] = ft_strtrim(tmp);
-		free(tmp);
-		i++;
-	}
-	return (split);
-}
-
-int		read_file(t_asm **env, char **arg)
-{
-	int		fd;
-	char	*file;
-
-	if (check_extension(arg[1]))					// Verifie l'extension *.s
-		return (err_code(1, arg[0]));
-	fd = open(arg[1], O_RDONLY);
-	if (fd == -1)									// Check si le fichier a bien ete ouvert
-		return (err_code(2, arg[1]));
-	file = read_asm(fd, lseek(fd, 0, SEEK_END));	// Lis le ficher, lseek pour connaitre la taille
-	if (!file)										// Verifie si le fichier est vide
-		return (err_code(3, arg[1]));
-	else
-	{
-		if (!(*env = ft_memalloc(sizeof(t_asm))))	// malloc de la structure principale
-		{
-			free(file);
-			return (err_code(0, NULL));
-		}
-	}
-	(*env)->raw_file = file;						// stock le fichier lu dans la structure
-	(*env)->i = 0;
-	(*env)->file = clean_split(ft_strsplit(file, '\n'));
+	if (!check_extension(arg[1]))
+		return (err_code(1, *env));
+	if (!(*env = ft_memalloc(sizeof(t_asm))))
+		return (err_code(0, NULL));
+	(*env)->name = ft_strsub(arg[1], 0, (ft_strlen(arg[1]) - 1));
+	(*env)->name = ft_conncat((*env)->name, "cor", ft_strlen((*env)->name), 3);
+	(*env)->input_fd = open(arg[1], O_RDONLY);
+	(*env)->error_line = 1;
+	if ((*env)->input_fd == -1)
+		return (err_code(2, *env));
+	if (!read_file(*env))
+		return (0);
 	return (1);
 }

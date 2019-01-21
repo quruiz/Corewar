@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 19:37:30 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/21 19:57:44 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,20 @@ int		err_code(int code, t_asm *env)
 		printf("Empty source file\n");
 	if (code == 4)
 		printf("Error at line %d\n", env->error_line);
+	if (code == 5)
+		printf("Name too long\n");
+	if (code == 6)
+		printf("Comment too long\n");
+
+/*
+**	a la moindre erreur de syntaxe
+**	printf("Syntax error at [%3.d:%3.d] "%s"", line, col, token);
+**
+**	Parametre invalide
+**	printf("Invalid parameter %d type %s for instruction %s [%3.d:%3.d]", param_nb, param_type, op_name, line, col);
+**
+*/	
+
 	if (env)
 		free_all(env);
 	return (0);
@@ -41,6 +55,7 @@ int		main(int argc, char *argv[])
 		return (err_code(1, NULL));
 	if (!init_read(&env, argv))
 		return (1);
+	free_all(env);
 	// ft_putstr(env->header->prog_name);
 	// ft_putstr(env->header->comment);
 }

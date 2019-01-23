@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/20 15:28:18 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/21 18:21:53 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/23 18:57:55 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,39 +24,16 @@ int		check_extension(char *file)
 	return (1);
 }
 
-int		read_file(t_asm *env)
-{
-	char	*line;
-
-	while (get_next_line(env->input_fd, &line) > 0)
-	{
-		env->error_line++;
-		if (*line == COMMENT_CHAR || ft_str_is_empty(line))
-			free(line);
-		else if (!env->header)
-		{
-			if (!get_header(env, line))
-				return (0);
-		}
-		else
-			free(line);
-	}
-	return (1);
-}
-
-int		init_read(t_asm **env, char **arg)
+int		check_file(t_asm **env, char **arg)
 {
 	if (!check_extension(arg[1]))
-		return (err_code(1, NULL));
+		return (BAD_FILENAME);
 	if (!(*env = ft_memalloc(sizeof(t_asm))))
-		return (err_code(0, NULL));
+		return (MEM_ERROR);
 	(*env)->name = ft_strsub(arg[1], 0, (ft_strlen(arg[1]) - 1));
 	(*env)->name = ft_conncat((*env)->name, "cor", ft_strlen((*env)->name), 3);
 	(*env)->input_fd = open(arg[1], O_RDONLY);
-	(*env)->error_line = 0;
 	if ((*env)->input_fd == -1)
-		return (err_code(2, *env));
-	if (!read_file(*env))
-		return (0);
-	return (1);
+		return (ERROR_FILE);
+	return (SUCCESS);
 }

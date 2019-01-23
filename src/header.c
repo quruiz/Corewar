@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 16:13:28 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/21 18:34:41 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/22 14:51:07 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,12 +70,15 @@ int		get_header(t_asm *env, char *line)
 	if (!(env->header = ft_memalloc(sizeof(t_header))))
 		return (err_code(0, env));
 	env->header->magic = COREWAR_EXEC_MAGIC;
+	//
 	if (*line != '.')
 		return (err_code(4, env));
+	//
 	if (!(res = read_header(env, line, NAME_CMD_STRING, PROG_NAME_LENGTH)))
 		return (err_code(4, env));
 	ft_strcpy(env->header->prog_name, res);
 	free(res);
+	//
 	while (get_next_line(env->input_fd, &line))
 	{
 		env->error_line++;
@@ -83,10 +86,13 @@ int		get_header(t_asm *env, char *line)
 			break ;
 		free(line);
 	}
+	//
 	if (!(res = read_header(env, line, COMMENT_CMD_STRING, COMMENT_LENGTH)))
 		return (err_code(4, env));
 	ft_strcpy(env->header->comment, res);
 	free(res);
+	//
 	dprintf(1, "NAME: %s\nCOMMENT: %s\n", env->header->prog_name, env->header->comment);
+	//
 	return (1);
 }

@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   reader.c                                         .::    .:/ .      .::   */
+/*   file.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/20 15:28:18 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 18:57:55 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/24 21:39:21 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
+
+void	read_file(t_asm *env, char **line)
+{
+	while (get_next_line(env->input_fd, line))
+	{
+		env->line_nb++;
+		if (!(ft_str_is_empty(*line) || **line == COMMENT_CHAR))
+			break ;
+		ft_strdel(line);
+	}
+}
 
 int		check_extension(char *file)
 {
@@ -27,13 +38,17 @@ int		check_extension(char *file)
 int		check_file(t_asm **env, char **arg)
 {
 	if (!check_extension(arg[1]))
-		return (BAD_FILENAME);
+		return (err_code(BAD_FILENAME, NULL, NULL));
 	if (!(*env = ft_memalloc(sizeof(t_asm))))
-		return (MEM_ERROR);
+		return (err_code(MEM_ERROR, NULL, NULL));
 	(*env)->name = ft_strsub(arg[1], 0, (ft_strlen(arg[1]) - 1));
 	(*env)->name = ft_conncat((*env)->name, "cor", ft_strlen((*env)->name), 3);
 	(*env)->input_fd = open(arg[1], O_RDONLY);
+	(*env)->line_nb = 0;
 	if ((*env)->input_fd == -1)
-		return (ERROR_FILE);
+		return (err_code(ERROR_FILE, NULL, *env));
+	if (lseek((*env)->input_fd, 0, SEEK_END) == 0)
+		return (err_code(EMPTY_FILE, NULL, *env));
+	lseek((*env)->input_fd, 0, SEEK_SET);
 	return (SUCCESS);
 }

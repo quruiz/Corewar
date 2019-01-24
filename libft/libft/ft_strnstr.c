@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_strnstr.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: quruiz <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:13 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/05 18:21:13 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 21:04:17 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		if (needle[i] == '\0')
 			return ((char *)&haystack[j - i]);
 		if (haystack[j] == '\0' || haystack[0] == '\0')
-			return (0);
+			return (NULL);
 	}
-	return (0);
+	return (NULL);
 }

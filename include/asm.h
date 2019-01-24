@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 18:59:16 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 22:08:43 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,12 +18,15 @@
 # include "error.h"
 # include "../libft/libft/libft.h"
 
+# define PROG_NAME	env->header->prog_name
+# define COMMENT	env->header->comment
+
 typedef struct		s_asm
 {
 	char			*name;
 	int				input_fd;
 	int				output_fd;
-	struct s_err	*err;
+	int				line_nb;
 	struct s_header	*header;
 	struct s_code	*code;
 }					t_asm;
@@ -51,9 +54,10 @@ typedef struct		s_cmd
 	unsigned char	*code;
 }					t_cmd;
 
-int					err_code(t_asm *env);
+int					err_code(int code, char *token, t_asm *env);
+void				read_file(t_asm *env, char **line);
 int					check_file(t_asm **env, char **arg);
-int					get_header(t_asm *env, char *line);
-void    			free_all(t_asm *env);
+int					get_header(t_asm *env);
+void	   			free_all(t_asm *env);
 
 #endif

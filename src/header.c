@@ -6,14 +6,14 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 16:13:28 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 22:16:46 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/26 18:47:32 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
 
-int		read_more(t_asm *env, char **line, char *cmd, int len)
+char	*read_more(t_asm *env, char **line, char *cmd, int len)
 {
 	char	*tmp;
 	int		size[3];
@@ -30,21 +30,22 @@ int		read_more(t_asm *env, char **line, char *cmd, int len)
 		size[2] += size[1];
 		free(tmp);
 		if (size[2] > len)
+		{
+			err_code(SIZE_ERROR, cmd, env);
 			break ;
+		}
 		if (ft_strchr((*line + (size[0] - size[1])), '"'))
-			return (1);
+			return (*line);
 	}
-	ft_strdel(line);
-	return (err_code(SIZE_ERROR, cmd, env));
+	return (NULL);
 }
 
-int		parse_name(t_asm *env, char *line, char *dest)
+int		parse_name(t_asm *env, char **line, char *dest)
 {
 	char	*start;
 	char	*end;
-	char	*str;
 
-	if (!(start = ft_strstr(line, NAME_CMD_STRING)))
+	if (!(start = ft_strstr(*line, NAME_CMD_STRING)))
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
 	start += ft_strlen(NAME_CMD_STRING);
 	while (!ft_isprint(*start))
@@ -53,29 +54,24 @@ int		parse_name(t_asm *env, char *line, char *dest)
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
 	if (!(end = ft_strchr(start + 1, '"')))
 	{
-		if (!read_more(env, &line, NAME_CMD_STRING, PROG_NAME_LENGTH))
+		if (!(*line = read_more(env, line, NAME_CMD_STRING, PROG_NAME_LENGTH)))
 			return (0);
 		return (parse_name(env, line, dest));
 	}
 	else if (!ft_str_is_empty(end + 1))
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
-	str = ft_strsub(start, 1, end - (start + 1));
-	if (ft_strlen(str) > PROG_NAME_LENGTH)
-		err_code(SIZE_ERROR, NAME_CMD_STRING, env);
-	else
-		ft_strcpy(dest, str);
-	free(str);
-	free(line);
-	return (ft_str_is_empty(dest) ? 0 : 1);
+	if ((end - (start + 1)) > PROG_NAME_LENGTH)
+		return (err_code(SIZE_ERROR, NAME_CMD_STRING, env));
+	ft_strncpy(dest, start, end - (start + 1));
+	return (1);
 }
 
-int		parse_comment(t_asm *env, char *line, char *dest)
+int		parse_comment(t_asm *env, char **line, char *dest)
 {
 	char	*start;
 	char	*end;
-	char	*str;
 
-	if (!(start = ft_strstr(line, COMMENT_CMD_STRING)))
+	if (!(start = ft_strstr(*line, COMMENT_CMD_STRING)))
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
 	start += ft_strlen(COMMENT_CMD_STRING);
 	while (!ft_isprint(*start))
@@ -84,20 +80,16 @@ int		parse_comment(t_asm *env, char *line, char *dest)
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
 	if (!(end = ft_strchr(start + 1, '"')))
 	{
-		if (!read_more(env, &line, COMMENT_CMD_STRING, COMMENT_LENGTH))
+		if (!(*line = read_more(env, line, COMMENT_CMD_STRING, COMMENT_LENGTH)))
 			return (0);
 		return (parse_comment(env, line, dest));
 	}
 	else if (!ft_str_is_empty(end + 1))
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
-	str = ft_strsub(start, 1, end - (start + 1));
-	if (ft_strlen(str) > COMMENT_LENGTH)
-		err_code(SIZE_ERROR, COMMENT_CMD_STRING, env);
-	else
-		ft_strcpy(dest, str);
-	free(str);
-	free(line);
-	return (ft_str_is_empty(dest) ? 0 : 1);
+	if ((end - (start + 1)) > COMMENT_LENGTH)
+		return (err_code(SIZE_ERROR, COMMENT_CMD_STRING, env));
+	ft_strncpy(dest, start, end - (start + 1));
+	return (1);
 }
 
 int		get_header(t_asm *env)
@@ -108,11 +100,12 @@ int		get_header(t_asm *env)
 		return (err_code(MEM_ERROR, NULL, env));
 	env->header->magic = COREWAR_EXEC_MAGIC;
 	read_file(env, &line);
-	if (!parse_name(env, line, PROG_NAME))
-		return (0);
+	if (!parse_name(env, &line, PROG_NAME))
+		return (ft_free_line(&line, 0));
+	ft_strdel(&line);
 	read_file(env, &line);
-	if (!parse_comment(env, line, COMMENT))
-		return (0);
-	dprintf(1, "NAME: %s\nCOMMENT: %s\n", env->header->prog_name, env->header->comment);
+	if (!parse_comment(env, &line, COMMENT))
+		return (ft_free_line(&line, 0));
+	ft_strdel(&line);
 	return (1);
 }

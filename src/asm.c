@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 21:24:17 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/26 18:01:28 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,6 @@ int		main(int argc, char *argv[])
 		return (1);
 	if (!get_header(env))
 		return (1);
+	dprintf(1, "NAME: \"%s\"\nCOMMENT: \"%s\"\n", PROG_NAME, COMMENT);
 	free_all(env);
-	// ft_putstr(env->header->prog_name);
-	// ft_putstr(env->header->comment);
 }

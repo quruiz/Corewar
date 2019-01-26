@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 16:13:28 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 18:47:32 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/26 22:16:13 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,13 +19,14 @@ char	*read_more(t_asm *env, char **line, char *cmd, int len)
 	int		size[3];
 
 	size[0] = ft_strlen(*line);
-	size[2] = ft_strlen(ft_strchr(*line, '"'));
+	size[2] = ft_strlen(ft_strchr(*line, '"') + 1);
 	while (get_next_line(env->input_fd, &tmp))
 	{
 		env->line_nb++;
 		size[1] = ft_strlen(tmp);
-		*line = ft_conncat(*line, "\n", size[0]++, 1);
-		*line = ft_conncat(*line, tmp, size[0], size[1]);
+		*line = ft_conncat(*line, "\n", size[0], 1);
+		*line = ft_conncat(*line, tmp, size[0] + 1, size[1]);
+		size[1] += ((!ft_strchr((*line + (size[0] - size[1])), '"')) ? 1 : 0);
 		size[0] += size[1];
 		size[2] += size[1];
 		free(tmp);
@@ -44,10 +45,12 @@ int		parse_name(t_asm *env, char **line, char *dest)
 {
 	char	*start;
 	char	*end;
+	int		cmd_size;
 
-	if (!(start = ft_strstr(*line, NAME_CMD_STRING)))
+	cmd_size = ft_strlen(NAME_CMD_STRING);
+	if (!(start = ft_strnstr(*line, NAME_CMD_STRING, cmd_size)))
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
-	start += ft_strlen(NAME_CMD_STRING);
+	start += cmd_size;
 	while (!ft_isprint(*start))
 		start++;
 	if (*start != '"')
@@ -62,7 +65,7 @@ int		parse_name(t_asm *env, char **line, char *dest)
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
 	if ((end - (start + 1)) > PROG_NAME_LENGTH)
 		return (err_code(SIZE_ERROR, NAME_CMD_STRING, env));
-	ft_strncpy(dest, start, end - (start + 1));
+	ft_strncpy(dest, (start + 1), end - (start + 1));
 	return (1);
 }
 
@@ -70,10 +73,12 @@ int		parse_comment(t_asm *env, char **line, char *dest)
 {
 	char	*start;
 	char	*end;
+	int		cmd_size;
 
-	if (!(start = ft_strstr(*line, COMMENT_CMD_STRING)))
+	cmd_size = ft_strlen(COMMENT_CMD_STRING);
+	if (!(start = ft_strnstr(*line, COMMENT_CMD_STRING, cmd_size)))
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
-	start += ft_strlen(COMMENT_CMD_STRING);
+	start += cmd_size;
 	while (!ft_isprint(*start))
 		start++;
 	if (*start != '"')
@@ -88,7 +93,7 @@ int		parse_comment(t_asm *env, char **line, char *dest)
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
 	if ((end - (start + 1)) > COMMENT_LENGTH)
 		return (err_code(SIZE_ERROR, COMMENT_CMD_STRING, env));
-	ft_strncpy(dest, start, end - (start + 1));
+	ft_strncpy(dest, (start + 1), end - (start + 1));
 	return (1);
 }
 

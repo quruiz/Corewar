@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 16:13:28 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 22:16:13 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 19:49:25 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,13 +32,14 @@ char	*read_more(t_asm *env, char **line, char *cmd, int len)
 		free(tmp);
 		if (size[2] > len)
 		{
-			err_code(SIZE_ERROR, cmd, env);
-			break ;
+			free(*line);
+			return (err_code(SIZE_ERROR, cmd, env) ? NULL : NULL);
 		}
 		if (ft_strchr((*line + (size[0] - size[1])), '"'))
 			return (*line);
 	}
-	return (NULL);
+	free(*line);
+	return (err_code(SYNTAX_ERROR, cmd, env) ? NULL : NULL);
 }
 
 int		parse_name(t_asm *env, char **line, char *dest)
@@ -49,7 +50,7 @@ int		parse_name(t_asm *env, char **line, char *dest)
 
 	cmd_size = ft_strlen(NAME_CMD_STRING);
 	if (!(start = ft_strnstr(*line, NAME_CMD_STRING, cmd_size)))
-		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
+		return (err_code(NO_TOKEN, NAME_CMD_STRING, env));
 	start += cmd_size;
 	while (!ft_isprint(*start))
 		start++;
@@ -77,7 +78,7 @@ int		parse_comment(t_asm *env, char **line, char *dest)
 
 	cmd_size = ft_strlen(COMMENT_CMD_STRING);
 	if (!(start = ft_strnstr(*line, COMMENT_CMD_STRING, cmd_size)))
-		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
+		return (err_code(NO_TOKEN, COMMENT_CMD_STRING, env));
 	start += cmd_size;
 	while (!ft_isprint(*start))
 		start++;

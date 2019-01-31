@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 17:03:10 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/31 19:04:00 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,8 @@ int		err_code(int code, char *token, t_asm *env)
 		printf("Invalid parameter for %s at line %.3d\n", token, env->line_nb);
 	else if (code == NO_TOKEN)
 		printf("Can't find token \"%s\" at line %.3d\n", token, env->line_nb);
+	else if (code == NEW_LINE)
+		printf("File must end with a empty line\n");
 	else
 		printf("Unknown error\n");
 	if (env)

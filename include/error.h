@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/23 18:33:17 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 17:00:58 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/31 16:25:21 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,5 +23,6 @@
 # define SYNTAX_ERROR	7
 # define INVALID_PARAM	8
 # define NO_TOKEN		9
+# define NEW_LINE		10
 
 # endif

@@ -1,31 +1,14 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   tool.c                                           .::    .:/ .      .::   */
+/*   get_label.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/29 17:19:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 21:01:40 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/31 20:59:29 by quruiz       #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/31 21:01:18 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
-
-int		check_label_chars(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr(LABEL_CHARS, str[i]))
-			i++;
-		else
-			break ;
-	}
-	if (str[i] == LABEL_CHAR)
-		return (1);
-	return (0);
-}

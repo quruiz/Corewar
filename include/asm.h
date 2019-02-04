@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 16:01:20 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/04 17:23:24 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,5 +47,6 @@ int					read_file(t_asm *env, char **line);
 int					check_file(t_asm **env, char **arg);
 int					get_header(t_asm *env);
 void	   			free_all(t_asm *env);
+int					check_label_chars(char *str);
 
 #endif

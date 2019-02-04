@@ -6,14 +6,17 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/04 20:20:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/04 20:22:46 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
 
+extern t_op		g_op_tab[17];
+
 int		get_op(t_asm *env, char *line)
 {
-	char
+	char *tmp = line;
+	return (1);
 }

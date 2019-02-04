@@ -6,14 +6,12 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 21:23:55 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/04 20:21:53 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
-
-extern t_op		g_op_tab[17];
 
 int		main(int argc, char *argv[])
 {

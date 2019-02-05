@@ -6,12 +6,14 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/04 20:21:53 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 18:32:22 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
+
+extern t_op		g_op_tab[17];
 
 int		main(int argc, char *argv[])
 {
@@ -19,10 +21,10 @@ int		main(int argc, char *argv[])
 	char	*file;
 
 	if (argc != 2)
-		return (err_code(ERROR_FILE, NULL, NULL));
+		return (err_code(BAD_FILENAME, NULL, NULL));
 	if (check_file(&env, argv) != SUCCESS)
 		return (1);
-	if (!get_header(env))
+	if (!get_header(env)/* || !get_cmd(env)*/)
 		return (1);
 	dprintf(1, "NAME: %s\nCOMMENT: %s\n", PROG_NAME, COMMENT);
 	free_all(env);

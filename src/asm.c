@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:32:22 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 14:49:51 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ int		main(int argc, char *argv[])
 		return (err_code(BAD_FILENAME, NULL, NULL));
 	if (check_file(&env, argv) != SUCCESS)
 		return (1);
-	if (!get_header(env)/* || !get_cmd(env)*/)
+	if (!get_header(env) || !get_cmd(env))
 		return (1);
 	dprintf(1, "NAME: %s\nCOMMENT: %s\n", PROG_NAME, COMMENT);
 	free_all(env);

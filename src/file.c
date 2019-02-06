@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:20:33 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 20:39:35 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,13 +20,15 @@ int		read_file(t_asm *env, char **line)
 	nl = 0;
 	while (get_next_line(env->input_fd, line))
 	{
+		nl = 0;
 		env->line_nb++;
-		if (!ft_str_is_empty(*line) || **line != COMMENT_CHAR)
+		if (!(ft_str_is_empty(*line) || **line == COMMENT_CHAR))
 			return (1);
-		nl = 1;
+		else if (**line != COMMENT_CHAR)
+			nl = 1;
 		ft_strdel(line);
 	}
-	return (nl);
+	return (0);
 }
 
 int		check_extension(char *file)

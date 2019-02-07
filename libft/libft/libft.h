@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:33 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 18:23:00 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 18:56:08 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -130,4 +130,5 @@ char			**ft_split_whitespaces(char const *str);
 short			ft_bswap_int16(short val);
 int				ft_bswap_int32(int val);
 int     		ft_str_is_empty(char *str);
+char			**ft_strsplit_trim(char const *s, char c);
 #endif

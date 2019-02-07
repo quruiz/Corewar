@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#include "../include/asm.h"
 
 // int		main()
 // {
@@ -34,73 +35,13 @@
 
 // }
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-char	*ft_strcat(char *str1, char *str2)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (str1[i])
-		i++;
-	while (str2[j])
-	{
-		str1[i] = str2[j];
-		j++;
-		i++;
-	}
-	str1[i] = '\0';
-	return (str1);
-}
-
-int		ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	ft_union(char **av)
-{
-	int		i;
-	int		j;
-	char	tab[ft_strlen(av[1]) + ft_strlen(av[2])];
-
-	i = 0;
-	j = 0;
-	tab[0] = '\0';
-	ft_strcat(tab, av[1]);
-	ft_strcat(tab, av[2]);
-	while (tab[j] != '\0' && tab[i] != '\0')
-	{
-		if (tab[i] == tab[j] && i != j)
-		{
-			i = 0;
-			j++;
-		}
-		else if (tab[i] == tab[j] && i == j)
-		{
-			ft_putchar(tab[j]);
-			i = 0;
-			j++;
-		}
-		else
-			i++;
-	}
-}
-
 int		main(int ac, char **av)
 {
-	if ((ac == 3) && (av[1] != '\0' && av[2] != '\0'))
-		ft_union(av);
-	ft_putchar('\n');
+	char	*line;
+	int		fd = open(av[1], O_RDONLY);
+	int		ret;
+
+	while ((ret = get_next_line(fd, &line)))
+		printf("RET = %d ----> %s\n", ret, line);
 	return (0);
 }

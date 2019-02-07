@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strsplit.c                                    .::    .:/ .      .::   */
+/*   ft_strsplit_trim.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:13 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 18:52:33 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 18:55:40 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ static int	count_words(char const *s, char c)
 	return (nb_words);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char		**ft_strsplit_trim(char const *s, char c)
 {
 	char	**split;
 	char	*tmp;
@@ -50,8 +50,10 @@ char		**ft_strsplit(char const *s, char c)
 		tmp = ft_strchr(s + cursor, c);
 		if (!tmp)
 			tmp = ft_strchr(s + cursor, '\0');
-		split[i] = ft_strsub(s, cursor, (tmp - (s + cursor)));
 		cursor = (tmp - s);
+		tmp = ft_strsub(s, cursor, (tmp - (s + cursor)));
+		split[i] = ft_strtrim(tmp);
+		free(tmp);
 		while (s[cursor] && s[cursor] == c)
 			cursor++;
 		i++;

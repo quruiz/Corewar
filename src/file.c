@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:21:00 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 17:43:39 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ int		check_file(t_asm **env, char **arg)
 {
 	t_op	*op_tab;
 
-	
 	if (!check_extension(arg[1]))
 		return (err_code(BAD_FILENAME, NULL, NULL));
 	if (!(*env = ft_memalloc(sizeof(t_asm))))

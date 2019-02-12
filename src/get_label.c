@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:29 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 18:21:07 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 17:43:13 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,10 @@
 
 char	*get_label(t_asm *env, char *line)
 {
-    char	*tmp;
+	char	*tmp;
 	t_code	*new;
 
-    if (!check_label_chars(line))
+	if (!check_label_chars(line))
 		return (line);
 	tmp = ft_strchr(line, LABEL_CHAR);
 	if (!(new = ft_memalloc(sizeof(t_code))))
@@ -29,7 +29,7 @@ char	*get_label(t_asm *env, char *line)
 	new->type = 1;
 	new->line_nb = env->line_nb;
 	new->token = ft_strsub(line, 0, (tmp - line));
-	new->cursor = 0; /* faire une fonction qui note l'emplacement de chaque labels */
+	new->cursor = 0;
 	new->next = NULL;
 	add_to_list(&env->code, new);
 	tmp = ft_strtrim(tmp + 1);

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 20:00:20 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 16:44:16 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,28 +15,44 @@
 
 extern t_op	g_op_tab[17];
 
-t_code		*detect_param(t_asm *env, char **param, int op)
+t_code		*create_struct_op(t_asm *env, char **p, int size, int op)
 {
-	int		i;
-	int		size;
+	t_code	*tmp;
 
-	i = 0;
-	size = 0;
-	while (i < g_op_tab[op].nb_param)
-	{
-		if (param[i][0] == 'r')
-			size += 1;
-		else if (param[i][0] == DIRECT_CHAR)
-			size += (g_op_tab[op].dir_size ? 2 : 4);
-		else if (param[i][0] == LABEL_CHAR)
-			size += 2;
-	}
-	/*	create_struct_op()
-	**
-	**	if (!label)
-	**	encode ;
-	*/
+	if (!(tmp = ft_memalloc(sizeof(t_code))))
+		return (err_code(MEM_ERROR, NULL, env) ? 0 : NULL);
+	tmp->type = 2;
+	tmp->line_nb = env->line_nb;
+	tmp->token = ft_strdup(g_op_tab[op].name);
+	tmp->params = p;
+	// tmp->size = size;
+	tmp->next = NULL;
+	return (tmp);
 }
+
+// t_code		*detect_param(t_asm *env, char **param, int op)
+// {
+// 	int		i;
+// 	int		size;
+
+// 	i = 0;
+// 	size = 0;
+// 	while (i < g_op_tab[op].nb_param)
+// 	{
+// 		if (param[i][0] == 'r')
+// 			check_reg(env, &size, &param_b)
+// 		else if (param[i][0] == DIRECT_CHAR)
+// 			size += (g_op_tab[op].dir_size ? 2 : 4);
+// 		else if (param[i][0] == LABEL_CHAR)
+// 			size += 2;
+// 		else
+// 		{
+// 			ft_freesplit(param);
+// 			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
+// 		}
+// 	}
+// 	return (create_struct_op(env, param, size, op));
+// }
 
 int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 {

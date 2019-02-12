@@ -35,13 +35,30 @@
 
 // }
 
+extern t_op	g_op_tab[17];
+
 int		main(int ac, char **av)
 {
-	char	*line;
-	int		fd = open(av[1], O_RDONLY);
-	int		ret;
+	int		i;
+	int		j;
 
-	while ((ret = get_next_line(fd, &line)))
-		printf("RET = %d ----> %s\n", ret, line);
+	i = 0;
+	while (i < 16)
+	{
+		j = 0;
+		printf("%s\t", g_op_tab[i].name);
+		while (j < 3)
+		{
+			printf("%d", (int)g_op_tab[i].param[j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+
+	if (g_op_tab[2].param[0] == (T_REG))
+		printf("1\n");
+	else
+		printf("0\n");
 	return (0);
 }

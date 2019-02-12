@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 18:20:36 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 18:03:57 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ typedef struct		s_code
 	off_t			cursor;
 	char			**params;
 	unsigned char	*code;
+	int				size;
 	struct s_code	*next;
 }					t_code;
 

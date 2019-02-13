@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 16:44:16 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 20:11:09 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,34 +25,36 @@ t_code		*create_struct_op(t_asm *env, char **p, int size, int op)
 	tmp->line_nb = env->line_nb;
 	tmp->token = ft_strdup(g_op_tab[op].name);
 	tmp->params = p;
-	// tmp->size = size;
+	tmp->size = size;
 	tmp->next = NULL;
 	return (tmp);
 }
 
-// t_code		*detect_param(t_asm *env, char **param, int op)
-// {
-// 	int		i;
-// 	int		size;
+t_code		*detect_param(t_asm *env, char **param, int op)
+{
+	int		i;
+	int		size;
 
-// 	i = 0;
-// 	size = 0;
-// 	while (i < g_op_tab[op].nb_param)
-// 	{
-// 		if (param[i][0] == 'r')
-// 			check_reg(env, &size, &param_b)
-// 		else if (param[i][0] == DIRECT_CHAR)
-// 			size += (g_op_tab[op].dir_size ? 2 : 4);
-// 		else if (param[i][0] == LABEL_CHAR)
-// 			size += 2;
-// 		else
-// 		{
-// 			ft_freesplit(param);
-// 			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
-// 		}
-// 	}
-// 	return (create_struct_op(env, param, size, op));
-// }
+	i = 0;
+	size = (g_op_tab[op].byte_param) + 1;
+	while (i < g_op_tab[op].nb_param)
+	{
+		if (param[i][0] == 'r' && (g_op_tab[op].param[i] & T_REG))
+			size += 1;
+		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].param[i] & T_DIR))
+			size += (g_op_tab[op].dir_size ? 2 : 4);
+		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
+			(g_op_tab[op].param[i] & T_IND))
+			size += 2;
+		else
+		{
+			ft_freesplit(param);
+			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
+		}
+		i++;
+	}
+	return (create_struct_op(env, param, size, op));
+}
 
 int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 {
@@ -62,7 +64,7 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	int		size;
 
 	i = 0;
-	while (isprint(line[cursor]))
+	while (!isprint(line[cursor]))
 		cursor++;
 	param = ft_strsplit_trim(line + cursor, SEPARATOR_CHAR);
 	while (i < g_op_tab[op_code].nb_param)
@@ -77,7 +79,7 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	}
 	if (!(code = detect_param(env, param, op_code)))
 		return (0);
-	add_to_list(&env->code, code);
+	add_to_list(env, code);
 	return (1);
 }
 
@@ -98,7 +100,7 @@ int			get_op(t_asm *env, char *line)
 	}
 	if (op == 16)
 		return (err_code(SYNTAX_ERROR, NULL, env));
-	parse_op(env, line, cursor, op);
-	free(line);
-	return (1);
+	if (!parse_op(env, line, cursor, op))
+		return (ft_free_line(&line, 0));
+	return (ft_free_line(&line, 1));
 }

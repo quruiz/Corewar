@@ -56,7 +56,7 @@ int		main(int ac, char **av)
 		i++;
 	}
 
-	if (g_op_tab[2].param[0] == (T_REG))
+	if (g_op_tab[2].param[1] & T_REG)
 		printf("1\n");
 	else
 		printf("0\n");

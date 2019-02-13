@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 18:03:57 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 17:38:46 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,6 @@ int					check_label_chars(char *str);
 int					get_cmd(t_asm *env);
 char				*get_label(t_asm *env, char *line);
 int					get_op(t_asm *env, char *line);
-void				add_to_list(t_code **list, t_code *n);
+void				add_to_list(t_asm *env, t_code *n);
 
 #endif

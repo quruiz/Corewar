@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:13 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 18:55:40 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 17:52:51 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,21 @@ static int	count_words(char const *s, char c)
 	return (nb_words);
 }
 
+static void	clean_split(char **split)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (split[i])
+	{
+		tmp = split[i];
+		split[i] = ft_strtrim(split[i]);
+		free(tmp);
+		i++;
+	}
+}
+
 char		**ft_strsplit_trim(char const *s, char c)
 {
 	char	**split;
@@ -50,13 +65,12 @@ char		**ft_strsplit_trim(char const *s, char c)
 		tmp = ft_strchr(s + cursor, c);
 		if (!tmp)
 			tmp = ft_strchr(s + cursor, '\0');
+		split[i] = ft_strsub(s, cursor, (tmp - (s + cursor)));
 		cursor = (tmp - s);
-		tmp = ft_strsub(s, cursor, (tmp - (s + cursor)));
-		split[i] = ft_strtrim(tmp);
-		free(tmp);
 		while (s[cursor] && s[cursor] == c)
 			cursor++;
 		i++;
 	}
+	clean_split(split);
 	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 20:11:09 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 20:02:25 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 extern t_op	g_op_tab[17];
 
-t_code		*create_struct_op(t_asm *env, char **p, int size, int op)
+t_code		*create_struct_op(t_asm *env, char **p, short byte, int op)
 {
 	t_code	*tmp;
 
@@ -25,7 +25,8 @@ t_code		*create_struct_op(t_asm *env, char **p, int size, int op)
 	tmp->line_nb = env->line_nb;
 	tmp->token = ft_strdup(g_op_tab[op].name);
 	tmp->params = p;
-	tmp->size = size;
+	tmp->byte = byte;
+	// tmp->size = size;
 	tmp->next = NULL;
 	return (tmp);
 }
@@ -33,27 +34,35 @@ t_code		*create_struct_op(t_asm *env, char **p, int size, int op)
 t_code		*detect_param(t_asm *env, char **param, int op)
 {
 	int		i;
-	int		size;
+	short	val;
+	short	byte;
+	// int		size;
+	
 
 	i = 0;
-	size = (g_op_tab[op].byte_param) + 1;
+	val = 64;
+	// size = (g_op_tab[op].byte_param) + 1;
 	while (i < g_op_tab[op].nb_param)
 	{
 		if (param[i][0] == 'r' && (g_op_tab[op].param[i] & T_REG))
-			size += 1;
+			byte += byte + val;
+			// size += 1;
 		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].param[i] & T_DIR))
-			size += (g_op_tab[op].dir_size ? 2 : 4);
+			byte += byte + (val * 3);
+			// size += (g_op_tab[op].dir_size ? 2 : 4);
 		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
 			(g_op_tab[op].param[i] & T_IND))
-			size += 2;
+			byte += byte + (val * 2);
+			// size += 2;
 		else
 		{
 			ft_freesplit(param);
 			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
 		}
+		val *= 4;
 		i++;
 	}
-	return (create_struct_op(env, param, size, op));
+	return (create_struct_op(env, param, byte, op));
 }
 
 int			parse_op(t_asm *env, char *line, int cursor, int op_code)

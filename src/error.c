@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 19:04:00 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 14:44:24 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int		err_code(int code, char *token, t_asm *env)
 	else if (code == BAD_FILENAME)
 		printf("Usage: ./asm <file>.s\n");
 	else if (code == ERROR_FILE)
-		printf("Can't read source file\n");
+		printf("Can't read or create file\n");
 	else if (code == EMPTY_FILE)
 		printf("Empty source file\n");
 	else if (code == SIZE_ERROR)

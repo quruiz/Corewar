@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 14:34:47 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 18:58:16 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,8 +25,8 @@ int		main(int argc, char *argv[])
 		return (1);
 	if (!get_header(env) || !get_cmd(env))
 		return (1);
-	if (!encode_asm(env))
-		return (1);
+	// if (!encode_asm(env))
+	// 	return (1);
 
 
 	int i;
@@ -44,8 +44,8 @@ int		main(int argc, char *argv[])
 		{
 			i = 0;
 			dprintf(1, "%s", "OP_CODE");
-			dprintf(1, " -> %s\tsize = %d\n", tmp->token, tmp->size);
-			ft_putsplit(tmp->params);
+			dprintf(1, " -> %s\tsize = %d | byte %hhx\n", tmp->token, tmp->size, tmp->byte);
+			ft_putsplit(tmp->raw_params);
 		}
 		dprintf(1, "====================================\n");
 		tmp = tmp->next;

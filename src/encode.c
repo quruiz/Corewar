@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/15 14:38:51 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 20:04:06 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 18:21:32 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,10 +31,11 @@ int		encode_asm(t_asm *env)
 	tmp = env->code;
 	/*
 	**	Traite les infos et les stockes
-	**	puis rappel la fonction avec l'elemet suivant
+	**	puis rappel la fonction avec l'element suivant
 	**
 	**	encode_asm(tmp->next);
 	**
 	**	une fois fini, ecrit tout d'un coup
 	*/
+	return (1);
 }

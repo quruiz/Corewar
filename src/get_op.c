@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 20:02:25 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 19:11:19 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,54 +15,68 @@
 
 extern t_op	g_op_tab[17];
 
-t_code		*create_struct_op(t_asm *env, char **p, short byte, int op)
+void		save_size_param(char type, int *size, unsigned char *byte, int i)
 {
-	t_code	*tmp;
+	if (type == T_REG)
+	{
+		*byte = *byte | (1 << (6 - (i * 2)));
+		*size += 1;
+	}
+	if (type == T_DIR || type == T_LAB)
+	{
+		*byte = *byte | (2 << (6 - (i * 2)));
+		*size += (type == T_DIR ? 2 : 4);
+	}
+	if (type == T_IND)
+	{
+		*byte = *byte | ((1 | 2) << (6 - (i * 2)));
+		*size += 2;
+	}
+}
 
-	if (!(tmp = ft_memalloc(sizeof(t_code))))
+t_code		*create_struct_op(t_asm *env, t_code *tmp)
+{
+	t_code	*n;
+
+	if (!(n = ft_memalloc(sizeof(t_code))))
 		return (err_code(MEM_ERROR, NULL, env) ? 0 : NULL);
-	tmp->type = 2;
-	tmp->line_nb = env->line_nb;
-	tmp->token = ft_strdup(g_op_tab[op].name);
-	tmp->params = p;
-	tmp->byte = byte;
-	// tmp->size = size;
-	tmp->next = NULL;
-	return (tmp);
+	n->type = 2;
+	n->line_nb = env->line_nb;
+	n->token = ft_strdup(g_op_tab[tmp->op].name);
+	n->op = tmp->op;
+	n->byte = tmp->byte;
+	n->raw_params = tmp->raw_params;
+	n->size = tmp->size;
+	n->next = NULL;
+	return (n);
 }
 
 t_code		*detect_param(t_asm *env, char **param, int op)
 {
 	int		i;
-	short	val;
-	short	byte;
-	// int		size;
-	
+	t_code	tmp;
 
 	i = 0;
-	val = 64;
-	// size = (g_op_tab[op].byte_param) + 1;
+	tmp.size = (g_op_tab[op].byte_param) + 1;
+	tmp.op = op;
 	while (i < g_op_tab[op].nb_param)
 	{
 		if (param[i][0] == 'r' && (g_op_tab[op].param[i] & T_REG))
-			byte += byte + val;
-			// size += 1;
+			save_size_param(T_REG, &tmp.size, &tmp.byte, i);
 		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].param[i] & T_DIR))
-			byte += byte + (val * 3);
-			// size += (g_op_tab[op].dir_size ? 2 : 4);
+			save_size_param((g_op_tab[op].dir_size ? 2 : 8), &tmp.size, &tmp.byte, i);
 		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
 			(g_op_tab[op].param[i] & T_IND))
-			byte += byte + (val * 2);
-			// size += 2;
+			save_size_param(T_IND, &tmp.size, &tmp.byte, i);
 		else
 		{
 			ft_freesplit(param);
 			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
 		}
-		val *= 4;
 		i++;
 	}
-	return (create_struct_op(env, param, byte, op));
+	tmp.raw_params = param;
+	return (create_struct_op(env, &tmp));
 }
 
 int			parse_op(t_asm *env, char *line, int cursor, int op_code)

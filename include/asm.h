@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 20:02:12 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 18:56:52 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,9 +26,10 @@ typedef struct		s_code
 	int				type;
 	int				line_nb;
 	char			*token;
-	short			byte;
-	char			**params;
-	unsigned char	*code;
+	int				op;
+	unsigned char	byte;
+	char			**raw_params;
+	intmax_t		*params;
 	int				size;
 	struct s_code	*next;
 }					t_code;

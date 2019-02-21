@@ -7,10 +7,9 @@
 
 int		main()
 {
-	system("rm test");
-	int		fd = open("test", O_RDWR | O_CREAT);
+	int		fd = open("test", O_WRONLY | O_CREAT, 0600);
 
-	intmax_t		p1 = 999999999999;
+	intmax_t		p1 = -32;
 
 
 	// unsigned int i = 0x00ea83f3;

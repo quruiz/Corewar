@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 17:11:17 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/21 21:07:34 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ typedef struct	s_op
 {
     char		*name;
     char		nb_param;
-    char		param[4];
+    char		arg[4];
     char		op_code;
     int			cycles;
     char		*description;

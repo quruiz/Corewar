@@ -6,12 +6,29 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:29 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 18:20:59 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/21 21:31:59 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
+
+int		check_label_chars(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(LABEL_CHARS, str[i]))
+			i++;
+		else
+			break ;
+	}
+	if (str[i] == LABEL_CHAR)
+		return (1);
+	return (0);
+}
 
 char	*get_label(t_asm *env, char *line)
 {

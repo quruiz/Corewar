@@ -6,7 +6,7 @@
 #    By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/18 12:41:18 by quruiz       #+#   ##    ##    #+#        #
-#    Updated: 2019/01/16 18:23:26 by quruiz      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/21 21:28:03 by quruiz      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,7 +33,7 @@ LIBFT_SRC = ft_atoi.c ft_bzero.c ft_conncat.c ft_intlen.c ft_isalnum.c \
 	ft_wcharlen.c ft_wstrdup.c ft_wstrlen.c ft_freesplit.c ft_putsplit.c \
 	ft_add_line_to_tab.c ft_free_line.c ft_atoui.c ft_check_limit.c ft_uitoa.c \
 	ft_uintlen.c ft_split_whitespaces.c ft_bswap_int32.c ft_bswap_int16.c \
-	ft_str_is_empty.c
+	ft_str_is_empty.c ft_strsplit_trim.c
 GNL_SRC = get_next_line/get_next_line.c
 HEADER = libft/libft.h get_next_line/get_next_line.h
 SRC = $(addprefix libft/, $(LIBFT_SRC)) $(GNL_SRC)

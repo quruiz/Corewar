@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 19:11:19 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/21 21:07:53 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ t_code		*create_struct_op(t_asm *env, t_code *tmp)
 		return (err_code(MEM_ERROR, NULL, env) ? 0 : NULL);
 	n->type = 2;
 	n->line_nb = env->line_nb;
-	n->token = ft_strdup(g_op_tab[tmp->op].name);
+	n->token = ft_strdup(tmp->op.name);
 	n->op = tmp->op;
 	n->byte = tmp->byte;
 	n->raw_params = tmp->raw_params;
@@ -58,15 +58,15 @@ t_code		*detect_param(t_asm *env, char **param, int op)
 
 	i = 0;
 	tmp.size = (g_op_tab[op].byte_param) + 1;
-	tmp.op = op;
+	tmp.op = g_op_tab[op];
 	while (i < g_op_tab[op].nb_param)
 	{
-		if (param[i][0] == 'r' && (g_op_tab[op].param[i] & T_REG))
+		if (param[i][0] == 'r' && (g_op_tab[op].arg[i] & T_REG))
 			save_size_param(T_REG, &tmp.size, &tmp.byte, i);
-		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].param[i] & T_DIR))
+		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].arg[i] & T_DIR))
 			save_size_param((g_op_tab[op].dir_size ? 2 : 8), &tmp.size, &tmp.byte, i);
 		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
-			(g_op_tab[op].param[i] & T_IND))
+			(g_op_tab[op].arg[i] & T_IND))
 			save_size_param(T_IND, &tmp.size, &tmp.byte, i);
 		else
 		{

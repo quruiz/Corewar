@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/21 21:32:22 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 17:20:19 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ typedef struct		s_code
 	struct s_op		op;
 	unsigned char	byte;
 	char			**raw_params;
-	intmax_t		params[4];
+	intmax_t		params[2][4];
 	int				size;
 	struct s_code	*next;
 }					t_code;
@@ -45,15 +45,37 @@ typedef struct		s_asm
 	t_code			*code;
 }					t_asm;
 
+/*
+**	Parsing
+*/
 
-int					err_code(int code, char *token, t_asm *env);
-int					read_file(t_asm *env, char **line);
 int					check_file(t_asm **env, char **arg);
+int					read_file(t_asm *env, char **line);
 int					get_header(t_asm *env);
-void	   			free_all(t_asm *env);
 int					get_cmd(t_asm *env);
 char				*get_label(t_asm *env, char *line);
 int					get_op(t_asm *env, char *line);
+
+/*
+**	Compilation
+*/
+
+int					handle_reg(t_asm *env, t_code *code, int i);
+int					handle_direct(t_asm *env, t_code *code, int i);
+int					handle_indirect(t_asm *env, t_code *code, int i);
+int					init_output(t_asm *env);
+
+/*
+**	Tools
+*/
+
 void				add_to_list(t_asm *env, t_code *n);
+
+/*
+**	Errors and Malloc
+*/
+
+void				free_all(t_asm *env);
+int					err_code(int code, char *token, t_asm *env);
 
 #endif

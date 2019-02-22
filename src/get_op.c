@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/21 21:07:53 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 15:09:04 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,23 +15,24 @@
 
 extern t_op	g_op_tab[17];
 
-void		save_size_param(char type, int *size, unsigned char *byte, int i)
+void		save_size_param(char type, t_code *code, int i)
 {
 	if (type == T_REG)
 	{
-		*byte = *byte | (1 << (6 - (i * 2)));
-		*size += 1;
+		code->byte = code->byte | (1 << (6 - (i * 2)));
+		code->size += 1;
 	}
-	if (type == T_DIR || type == T_LAB)
+	else if (type == T_DIR)
 	{
-		*byte = *byte | (2 << (6 - (i * 2)));
-		*size += (type == T_DIR ? 2 : 4);
+		code->byte = code->byte | (2 << (6 - (i * 2)));
+		code->size += (code->op.dir_size ? 2 : 4);
 	}
-	if (type == T_IND)
+	else if (type == T_IND)
 	{
-		*byte = *byte | ((1 | 2) << (6 - (i * 2)));
-		*size += 2;
+		code->byte = code->byte | ((1 | 2) << (6 - (i * 2)));
+		code->size += 2;
 	}
+	code->params[1][i] = type;
 }
 
 t_code		*create_struct_op(t_asm *env, t_code *tmp)
@@ -62,12 +63,12 @@ t_code		*detect_param(t_asm *env, char **param, int op)
 	while (i < g_op_tab[op].nb_param)
 	{
 		if (param[i][0] == 'r' && (g_op_tab[op].arg[i] & T_REG))
-			save_size_param(T_REG, &tmp.size, &tmp.byte, i);
+			save_size_param(T_REG, &tmp, i);
 		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].arg[i] & T_DIR))
-			save_size_param((g_op_tab[op].dir_size ? 2 : 8), &tmp.size, &tmp.byte, i);
+			save_size_param(T_DIR, &tmp, i);
 		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
 			(g_op_tab[op].arg[i] & T_IND))
-			save_size_param(T_IND, &tmp.size, &tmp.byte, i);
+			save_size_param(T_IND, &tmp, i);
 		else
 		{
 			ft_freesplit(param);
@@ -101,7 +102,7 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 		}
 	}
 	if (!(code = detect_param(env, param, op_code)))
-		return (0);
+		return (ft_freesplit(param));
 	add_to_list(env, code);
 	return (1);
 }

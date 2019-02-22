@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/21 21:34:13 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 17:19:24 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ int		check_file(t_asm **env, char **arg)
 	return (SUCCESS);
 }
 
-int     init_output(t_asm *env)
+int		init_output(t_asm *env)
 {
 	int		fd;
 

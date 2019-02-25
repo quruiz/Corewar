@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 14:53:35 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 17:12:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 19:52:30 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ intmax_t	label_size(t_asm *env, t_code *label, t_code *op, int direction)
 			op_tmp = op_tmp->next;
 		}
 	}
-	return (len);
+	return (op->op.dir_size ? ft_bswap_int16(len) : ft_bswap_int32(len));
 }
 
 int			handle_label(t_asm *env, t_code *code, int i)
@@ -73,7 +73,13 @@ int			handle_direct(t_asm *env, t_code *code, int i)
 	if (code->raw_params[i][1] == LABEL_CHAR)
 		return (handle_label(env, code, i));
 	if (ft_str_is_numeric(code->raw_params[i] + 1))
+	{
 		code->params[0][i] = ft_atoi(code->raw_params[i] + 1);
+		if (code->op.dir_size)
+			code->params[0][i] = ft_bswap_int16(code->params[0][i]);
+		else
+			code->params[0][i] = ft_bswap_int32(code->params[0][i]);
+	}
 	else
 		return (0);
 	return (1);
@@ -83,8 +89,8 @@ int			handle_indirect(t_asm *env, t_code *code, int i)
 {
 	if (code->raw_params[i][0] == LABEL_CHAR)
 		return (handle_label(env, code, i));
-	if (ft_str_is_numeric(code->raw_params[i] + 1))
-		code->params[0][i] = ft_atoi(code->raw_params[i]);
+	if (ft_str_is_numeric(code->raw_params[i]))
+		code->params[0][i] = ft_bswap_int16(ft_atoi(code->raw_params[i]));
 	else
 		return (0);
 	return (1);
@@ -94,7 +100,7 @@ int			handle_reg(t_asm *env, t_code *code, int i)
 {
 	if (ft_str_is_numeric(code->raw_params[i] + 1) &&
 		ft_strlen(code->raw_params[i] + 1) < 3)
-		code->params[0][i] = ft_atoi(code->raw_params[i]);
+		code->params[0][i] = (char)ft_atoi(code->raw_params[i]);
 	else
 		return (0);
 	return (1);

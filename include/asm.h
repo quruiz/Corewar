@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 17:20:19 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 21:22:22 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ typedef struct		s_asm
 	int				output_fd;
 	int				line_nb;
 	t_op			*op_tab;
-	t_header		*header;
+	t_header		header;
 	t_code			*code;
 }					t_asm;
 
@@ -60,10 +60,12 @@ int					get_op(t_asm *env, char *line);
 **	Compilation
 */
 
+int					encode_asm(t_asm *env);
 int					handle_reg(t_asm *env, t_code *code, int i);
 int					handle_direct(t_asm *env, t_code *code, int i);
 int					handle_indirect(t_asm *env, t_code *code, int i);
 int					init_output(t_asm *env);
+int     			write_cor(t_asm *env);
 
 /*
 **	Tools

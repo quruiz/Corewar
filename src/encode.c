@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/15 14:38:51 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 17:18:56 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 21:50:51 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int		handle_params(t_asm *env, t_code *tmp)
 {
 	int		i;
 
-	while (i < 3)
+	while (i < tmp->op.nb_param)
 	{
 		if (tmp->params[1][i] == T_REG)
 		{
@@ -49,8 +49,11 @@ int		encode_asm(t_asm *env)
 	while (tmp)
 	{
 		env->line_nb = tmp->line_nb;
-		if (!handle_params(env, tmp))
-			return (err_code(INVALID_PARAM, tmp->token, env));
+		if (tmp->type == 2)
+		{
+			if (!handle_params(env, tmp))
+				return (err_code(INVALID_PARAM, tmp->token, env));
+		}
 		tmp = tmp->next;
 	}
 	return (1);

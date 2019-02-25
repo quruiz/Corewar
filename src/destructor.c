@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/16 19:25:08 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 18:20:47 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 21:23:09 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +40,6 @@ void	free_code(t_asm *env)
 
 void	free_all(t_asm *env)
 {
-	if (env->header)
-		free(env->header);
 	if (env->code)
 		free_code(env);
 	free(env->name);

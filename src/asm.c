@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/16 16:58:11 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/21 21:35:21 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 20:10:11 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,30 +44,9 @@ int		main(int argc, char *argv[])
 		return (1);
 	if (!get_header(env) || !get_cmd(env))
 		return (1);
-	// if (!encode_asm(env))
-	// 	return (1);
-
-
-	// int i;
-	// t_code	*tmp;
-
-	// tmp = env->code;
-	// while (tmp)
-	// {
-	// 	if (tmp->type == 1)
-	// 	{
-	// 		dprintf(1, "%s", "LABEL  ");
-	// 		dprintf(1, " = %s\n", tmp->token);
-	// 	}
-	// 	else if (tmp->type == 2)
-	// 	{
-	// 		i = 0;
-	// 		dprintf(1, "%s", "OP_CODE");
-	// 		dprintf(1, " -> %s\tsize = %d | byte %hhx\n", tmp->token, tmp->size, tmp->byte);
-	// 		ft_putsplit(tmp->raw_params);
-	// 	}
-	// 	dprintf(1, "====================================\n");
-	// 	tmp = tmp->next;
-	// }
+	if (!encode_asm(env))
+		return (1);
+	if (!write_cor(env))
+		return (1);
 	free_all(env);
 }

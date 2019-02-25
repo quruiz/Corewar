@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 15:09:04 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 20:09:22 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,10 +70,7 @@ t_code		*detect_param(t_asm *env, char **param, int op)
 			(g_op_tab[op].arg[i] & T_IND))
 			save_size_param(T_IND, &tmp, i);
 		else
-		{
-			ft_freesplit(param);
 			return (err_code(INVALID_PARAM, g_op_tab[op].name, env) ? 0 : NULL);
-		}
 		i++;
 	}
 	tmp.raw_params = param;
@@ -91,15 +88,13 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	while (!isprint(line[cursor]))
 		cursor++;
 	param = ft_strsplit_trim(line + cursor, SEPARATOR_CHAR);
-	while (i < g_op_tab[op_code].nb_param)
+	while (i < g_op_tab[op_code].nb_param && param[i] &&
+		!ft_str_is_empty(param[i]))
+		i++;
+	if (i != g_op_tab[op_code].nb_param)
 	{
-		if (param[i] && !ft_str_is_empty(param[i]))
-			i++;
-		else
-		{
-			ft_freesplit(param);
-			return (err_code(INVALID_PARAM, g_op_tab[op_code].name, env));
-		}
+		ft_freesplit(param);
+		return (err_code(INVALID_PARAM, g_op_tab[op_code].name, env));
 	}
 	if (!(code = detect_param(env, param, op_code)))
 		return (ft_freesplit(param));

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 14:53:35 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 19:52:30 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 21:14:06 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ intmax_t	label_size(t_asm *env, t_code *label, t_code *op, int direction)
 	{
 		while (label_tmp && label_tmp != op_tmp)
 		{
-			len += len + label_tmp->size;
+			len -= label_tmp->size;
 			label_tmp = label_tmp->next;
 		}
 	}
@@ -34,7 +34,7 @@ intmax_t	label_size(t_asm *env, t_code *label, t_code *op, int direction)
 	{
 		while (op_tmp && op_tmp != label_tmp)
 		{
-			len += len + op_tmp->size;
+			len += op_tmp->size;
 			op_tmp = op_tmp->next;
 		}
 	}
@@ -54,7 +54,7 @@ int			handle_label(t_asm *env, t_code *code, int i)
 	{
 		if (list->type == 1)
 		{
-			if (ft_strequ(tmp, list->token))
+			if (ft_strequ((tmp + 1), list->token))
 			{
 				if (list->line_nb <= code->line_nb)
 					code->params[0][i] = label_size(env, list, code, 1);
@@ -100,7 +100,7 @@ int			handle_reg(t_asm *env, t_code *code, int i)
 {
 	if (ft_str_is_numeric(code->raw_params[i] + 1) &&
 		ft_strlen(code->raw_params[i] + 1) < 3)
-		code->params[0][i] = (char)ft_atoi(code->raw_params[i]);
+		code->params[0][i] = ft_atoi(code->raw_params[i] + 1);
 	else
 		return (0);
 	return (1);

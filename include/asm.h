@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 21:22:22 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 21:16:33 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ int					handle_reg(t_asm *env, t_code *code, int i);
 int					handle_direct(t_asm *env, t_code *code, int i);
 int					handle_indirect(t_asm *env, t_code *code, int i);
 int					init_output(t_asm *env);
-int     			write_cor(t_asm *env);
+int					write_cor(t_asm *env);
 
 /*
 **	Tools

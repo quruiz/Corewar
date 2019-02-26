@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/16 19:25:08 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 21:23:09 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 15:51:32 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,14 +27,12 @@ void	free_code(t_asm *env)
 			tmp2 = tmp1->next;
 			free(tmp1->token);
 			ft_freesplit(tmp1->raw_params);
-			free(tmp1->params);
 			free(tmp1);
 			tmp1 = tmp2;
 		}
 	}
 	free(tmp1->token);
 	ft_freesplit(tmp1->raw_params);
-	free(tmp1->params);
 	free(tmp1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 20:09:22 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 20:42:18 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ void		save_size_param(char type, t_code *code, int i)
 	}
 	else if (type == T_IND)
 	{
-		code->byte = code->byte | ((1 | 2) << (6 - (i * 2)));
+		code->byte = code->byte | (3 << (6 - (i * 2)));
 		code->size += 2;
 	}
 	code->params[1][i] = type;
@@ -38,7 +38,9 @@ void		save_size_param(char type, t_code *code, int i)
 t_code		*create_struct_op(t_asm *env, t_code *tmp)
 {
 	t_code	*n;
+	int		i;
 
+	i = 0;
 	if (!(n = ft_memalloc(sizeof(t_code))))
 		return (err_code(MEM_ERROR, NULL, env) ? 0 : NULL);
 	n->type = 2;
@@ -47,6 +49,11 @@ t_code		*create_struct_op(t_asm *env, t_code *tmp)
 	n->op = tmp->op;
 	n->byte = tmp->byte;
 	n->raw_params = tmp->raw_params;
+	while (i <= 4)
+	{
+		n->params[1][i] = tmp->params[1][i];
+		i++;
+	}
 	n->size = tmp->size;
 	n->next = NULL;
 	return (n);
@@ -60,6 +67,7 @@ t_code		*detect_param(t_asm *env, char **param, int op)
 	i = 0;
 	tmp.size = (g_op_tab[op].byte_param) + 1;
 	tmp.op = g_op_tab[op];
+	tmp.byte = 0;
 	while (i < g_op_tab[op].nb_param)
 	{
 		if (param[i][0] == 'r' && (g_op_tab[op].arg[i] & T_REG))

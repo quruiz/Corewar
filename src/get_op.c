@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 20:42:18 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:38:03 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,20 +19,19 @@ void		save_size_param(char type, t_code *code, int i)
 {
 	if (type == T_REG)
 	{
-		code->byte = code->byte | (1 << (6 - (i * 2)));
+		code->byte = code->byte | (REG_CODE << (6 - (i * 2)));
 		code->size += 1;
 	}
 	else if (type == T_DIR)
 	{
-		code->byte = code->byte | (2 << (6 - (i * 2)));
+		code->byte = code->byte | (DIR_CODE << (6 - (i * 2)));
 		code->size += (code->op.dir_size ? 2 : 4);
 	}
 	else if (type == T_IND)
 	{
-		code->byte = code->byte | (3 << (6 - (i * 2)));
+		code->byte = code->byte | (IND_CODE << (6 - (i * 2)));
 		code->size += 2;
 	}
-	code->params[1][i] = type;
 }
 
 t_code		*create_struct_op(t_asm *env, t_code *tmp)
@@ -49,11 +48,6 @@ t_code		*create_struct_op(t_asm *env, t_code *tmp)
 	n->op = tmp->op;
 	n->byte = tmp->byte;
 	n->raw_params = tmp->raw_params;
-	while (i <= 4)
-	{
-		n->params[1][i] = tmp->params[1][i];
-		i++;
-	}
 	n->size = tmp->size;
 	n->next = NULL;
 	return (n);
@@ -90,7 +84,6 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	char	**param;
 	t_code	*code;
 	int		i;
-	int		size;
 
 	i = 0;
 	while (!isprint(line[cursor]))

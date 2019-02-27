@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 21:16:33 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 16:59:47 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ typedef struct		s_code
 	struct s_op		op;
 	unsigned char	byte;
 	char			**raw_params;
-	intmax_t		params[2][4];
+	intmax_t		params[4];
 	int				size;
 	struct s_code	*next;
 }					t_code;
@@ -61,7 +61,7 @@ int					get_op(t_asm *env, char *line);
 */
 
 int					encode_asm(t_asm *env);
-int					handle_reg(t_asm *env, t_code *code, int i);
+int					handle_reg(t_code *code, int i);
 int					handle_direct(t_asm *env, t_code *code, int i);
 int					handle_indirect(t_asm *env, t_code *code, int i);
 int					init_output(t_asm *env);

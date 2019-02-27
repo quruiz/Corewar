@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 17:47:14 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 21:19:42 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:00:00 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,38 +23,46 @@ void	get_prog_size(t_asm *env)
 	while (tmp)
 	{
 		if (tmp->type == 2)
-			size += (size + tmp->size);
+			size += tmp->size;
 		tmp = tmp->next;
 	}
 	env->header.prog_size = ft_bswap_int32(size);
 }
 
+void	put_op(t_asm *env, t_code *op)
+{
+	int		i;
+	int		val;
+
+	i = 0;
+	write(env->output_fd, &op->op.op_code, 1);
+	op->op.byte_param ? write(env->output_fd, &op->byte, 1) : 0;
+	while (i < op->op.nb_param)
+	{
+		val = ft_recursive_power(4, i);
+		if (op->byte & (64 / val))
+			write(env->output_fd, &op->params[i], 1);
+		else if (op->byte & ((128 / val) + (64 / val)))
+			write(env->output_fd, &op->params[i], 2);
+		else if (op->byte & (128 / val))
+			write(env->output_fd, &op->params[i], op->op.dir_size ? 2 : 4);
+		i++;
+	}
+}
+
 int		write_cor(t_asm *env)
 {
 	t_code	*tmp;
-	int		i;
 
 	tmp = env->code;
 	get_prog_size(env);
 	init_output(env);
-	put_header(env->header);
+	write(env->output_fd, &env->header, sizeof(t_header));
 	while (tmp)
 	{
 		if (tmp->type == 2)
 		{
-			i = 0;
-			write(env->output_fd, &tmp->op.op_code, 1);
-			tmp->op.byte_param ? write(env->output_fd, &tmp->byte, 1) : 0;
-			while (i < tmp->op.nb_param)
-			{
-				if (tmp->params[1][i] == T_REG)
-					write(env->output_fd, &tmp->params[0][i], 1);
-				else if (tmp->params[1][i] == T_IND)
-					write(env->output_fd, &tmp->params[0][i], 2);
-				else if (tmp->params[1][i] == T_DIR)
-					write(env->output_fd, &tmp->params[0][i], tmp->op.dir_size ? 2 : 4);
-				i++;
-			}
+			put_op(env, tmp);
 		}
 		tmp = tmp->next;
 	}

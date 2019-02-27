@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/15 14:38:51 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 18:47:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:37:35 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,23 +16,25 @@
 int		handle_params(t_asm *env, t_code *tmp)
 {
 	int		i;
+	int		val;
 
 	i = 0;
 	while (i < tmp->op.nb_param)
 	{
-		if (tmp->params[1][i] == T_REG)
+		val = 64 / ft_recursive_power(4, i);
+		if ((tmp->byte & (IND_CODE * val)) == IND_CODE * val)
 		{
-			if (!handle_reg(env, tmp, i))
+			if (!handle_indirect(env, tmp, i))
 				return (0);
 		}
-		else if (tmp->params[1][i] == T_DIR)
+		else if ((tmp->byte & (DIR_CODE * val)) == DIR_CODE * val)
 		{
 			if (!handle_direct(env, tmp, i))
 				return (0);
 		}
-		else if (tmp->params[1][i] == T_IND)
+		else if ((tmp->byte & (REG_CODE * val)) == REG_CODE * val)
 		{
-			if (!handle_indirect(env, tmp, i))
+			if (!handle_reg(tmp, i))
 				return (0);
 		}
 		else

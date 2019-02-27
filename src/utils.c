@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 17:19:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 16:54:59 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,6 @@ int		read_file(t_asm *env, char **line)
 int		check_extension(char *file)
 {
 	int		len;
-	int		start;
 
 	len = ft_strlen(file);
 	if (!(file[len - 1] == 's' && file[len - 2] == '.'))
@@ -39,8 +38,6 @@ int		check_extension(char *file)
 
 int		check_file(t_asm **env, char **arg)
 {
-	t_op	*op_tab;
-
 	if (!check_extension(arg[1]))
 		return (err_code(BAD_FILENAME, NULL, NULL));
 	if (!(*env = ft_memalloc(sizeof(t_asm))))

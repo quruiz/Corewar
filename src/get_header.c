@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 21:00:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 16:24:34 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 18:58:11 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ int		parse_name(t_asm *env, char **line, char *dest)
 		return (err_code(SYNTAX_ERROR, NAME_CMD_STRING, env));
 	if ((end - (start + 1)) > PROG_NAME_LENGTH)
 		return (err_code(SIZE_ERROR, NAME_CMD_STRING, env));
-	ft_strncpy(dest, (start + 1), sizeof(dest));
+	ft_strncpy(dest, (start + 1), (end - (start + 1)));
 	return (1);
 }
 
@@ -94,7 +94,7 @@ int		parse_comment(t_asm *env, char **line, char *dest)
 		return (err_code(SYNTAX_ERROR, COMMENT_CMD_STRING, env));
 	if ((end - (start + 1)) > COMMENT_LENGTH)
 		return (err_code(SIZE_ERROR, COMMENT_CMD_STRING, env));
-	ft_strncpy(dest, (start + 1), sizeof(dest));
+	ft_strncpy(dest, (start + 1), (end - (start + 1)));
 	return (1);
 }
 

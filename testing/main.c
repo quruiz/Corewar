@@ -9,6 +9,9 @@ int		main()
 {
 	// system("rm test");
 	// int		fd = open("test", O_WRONLY | O_CREAT, 0600);
+	int		fd = open("test", O_RDONLY);
+	char	*line;
+	int		ret = 0;
 
 	// intmax_t		p1 = -32;
 	// t_header		header;
@@ -27,13 +30,18 @@ int		main()
 	// // p1 = ft_bswap_int16((short)p1);
 	// printf("%lu\n", sizeof(header.prog_name));
 	// write(fd, &header, sizeof(t_header));
-
-	int i = 0;
-	while (i < 4)
-	{
-		printf("%d\n", ft_recursive_power(4, i));
-		i++;
-	}
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
+	ret = get_next_line(fd, &line);
+	printf("ret = %d\t%s\n", ret, line);
 	// write(fd, "Bonjour", 7);
 	// lseek(fd, 121, SEEK_CUR);
 	// write(fd, &j, 4);

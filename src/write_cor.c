@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 17:47:14 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:00:00 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 18:53:27 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,12 +39,12 @@ void	put_op(t_asm *env, t_code *op)
 	op->op.byte_param ? write(env->output_fd, &op->byte, 1) : 0;
 	while (i < op->op.nb_param)
 	{
-		val = ft_recursive_power(4, i);
-		if (op->byte & (64 / val))
+		val = 64 / ft_recursive_power(4, i);
+		if ((op->byte & (REG_CODE * val)) == (REG_CODE * val))
 			write(env->output_fd, &op->params[i], 1);
-		else if (op->byte & ((128 / val) + (64 / val)))
+		else if ((op->byte & (IND_CODE * val)) == (IND_CODE * val))
 			write(env->output_fd, &op->params[i], 2);
-		else if (op->byte & (128 / val))
+		else if ((op->byte & (DIR_CODE * val)) == (DIR_CODE * val))
 			write(env->output_fd, &op->params[i], op->op.dir_size ? 2 : 4);
 		i++;
 	}

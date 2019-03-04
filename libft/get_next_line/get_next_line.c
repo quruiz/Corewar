@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   GNL.c                                            .::    .:/ .      .::   */
+/*   get_next_line.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: quruiz <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/14 12:45:05 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/06 18:52:10 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/02 19:49:55 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ static char			*get_line(t_gnl *list)
 	i = 0;
 	while (list->s[i] != '\n' && list->s[i] != '\0')
 		i++;
+	list->ret = (list->s[i] == '\n' ? 1 : 0);
 	str = (char *)malloc(sizeof(char) * i + 1);
 	str[i] = '\0';
 	i = 0;
@@ -72,6 +73,7 @@ int					get_next_line(const int fd, char **line)
 	if (fd < 0 || line == NULL || BUFF_SIZE < 1 || read(fd, buf, 0) == -1)
 		return (-1);
 	list = get_fd(&file_fd, fd);
+	list->ret = 0;
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
@@ -81,8 +83,7 @@ int					get_next_line(const int fd, char **line)
 		if (ft_strchr(list->s, '\n'))
 			break ;
 	}
-	if (ret < BUFF_SIZE && !ft_strlen(list->s))
-		return (0);
-	*line = get_line(list);
-	return (1);
+	if (ft_strlen(list->s))
+		*line = get_line(list);
+	return (list->ret);
 }

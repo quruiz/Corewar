@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/04 17:08:25 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 14:55:57 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/02 19:43:21 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,8 +22,9 @@
 
 typedef struct	s_gnl
 {
-	char			*s;
 	int				fd;
+	int				ret;
+	char			*s;
 	struct s_gnl	*next;
 }				t_gnl;
 

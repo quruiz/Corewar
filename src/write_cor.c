@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 17:47:14 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 18:53:27 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 16:02:45 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,9 +61,7 @@ int		write_cor(t_asm *env)
 	while (tmp)
 	{
 		if (tmp->type == 2)
-		{
 			put_op(env, tmp);
-		}
 		tmp = tmp->next;
 	}
 	return (1);

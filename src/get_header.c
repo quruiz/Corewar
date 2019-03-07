@@ -6,36 +6,39 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 21:00:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 18:58:11 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/07 20:33:31 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
 
-char	*read_more(t_asm *env, char **line, char *cmd, int len)
+char	*read_more(t_asm *env, char **line, char *cmd, int limit)
 {
 	char	*tmp;
-	int		size[3];
+	int		len_line;
+	int		len_tmp;
+	int		len_token;
 
-	size[0] = ft_strlen(*line);
-	size[2] = ft_strlen(ft_strchr(*line, '"') + 1);
+	len_line = ft_strlen(*line);
+	len_token = ft_strlen(ft_strchr(*line, '"') + 1);
 	while (get_next_line(env->input_fd, &tmp))
 	{
 		env->line_nb++;
-		size[1] = ft_strlen(tmp);
-		*line = ft_conncat(*line, "\n", size[0], 1);
-		*line = ft_conncat(*line, tmp, size[0] + 1, size[1]);
-		size[1] += ((!ft_strchr((*line + (size[0] - size[1])), '"')) ? 1 : 0);
-		size[0] += size[1];
-		size[2] += size[1];
+		len_tmp = ft_strlen(tmp);
+		*line = ft_conncat(*line, "\n", len_line, 1);
+		*line = ft_conncat(*line, tmp, len_line + 1, len_tmp);
+		len_tmp++;
+		// len_tmp += ((!ft_strchr((*line + (len_line - len_tmp)), '"')) ? 1 : 0);
+		len_line += len_tmp;
+		len_token += len_tmp;
 		free(tmp);
-		if (size[2] > len)
+		if (len_token > limit)
 		{
 			free(*line);
 			return (err_code(SIZE_ERROR, cmd, env) ? NULL : NULL);
 		}
-		if (ft_strchr((*line + (size[0] - size[1])), '"'))
+		if (ft_strchr((*line + (len_line - len_tmp)), '"'))
 			return (*line);
 	}
 	free(*line);

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/23 18:33:17 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 17:26:13 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/07 19:10:35 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,6 @@
 #ifndef ERROR_H
 # define ERROR_H
 
-# define SUCCESS        1
 # define MEM_ERROR		2
 # define BAD_FILENAME	3
 # define ERROR_FILE		4

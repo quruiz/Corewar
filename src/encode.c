@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/15 14:38:51 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:37:35 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/07 19:08:32 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,8 +37,6 @@ int		handle_params(t_asm *env, t_code *tmp)
 			if (!handle_reg(tmp, i))
 				return (0);
 		}
-		else
-			return (0);
 		i++;
 	}
 	return (1);

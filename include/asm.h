@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 16:59:47 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/07 18:16:16 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,36 @@
 # define PROG_NAME	env->header->prog_name
 # define COMMENT	env->header->comment
 
+/*
+**	Error codes
+*/
+
+# define SUCCESS        1
+# define MEM_ERROR		2
+# define BAD_FILENAME	3
+# define ERROR_FILE		4
+# define EMPTY_FILE		5
+# define SIZE_ERROR		6
+# define SYNTAX_ERROR	7
+# define INVALID_PARAM	8
+# define NO_TOKEN		9
+# define NEW_LINE		10
+
+/*
+**	Structs
+*/
+
+typedef struct		s_asm
+{
+	char			*name;
+	int				input_fd;
+	int				output_fd;
+	int				line_nb;
+	struct s_op		*op_tab;
+	struct s_header	header;
+	struct s_code	*code;
+}					t_asm;
+
 typedef struct		s_code
 {
 	int				type;
@@ -33,17 +63,6 @@ typedef struct		s_code
 	int				size;
 	struct s_code	*next;
 }					t_code;
-
-typedef struct		s_asm
-{
-	char			*name;
-	int				input_fd;
-	int				output_fd;
-	int				line_nb;
-	t_op			*op_tab;
-	t_header		header;
-	t_code			*code;
-}					t_asm;
 
 /*
 **	Parsing

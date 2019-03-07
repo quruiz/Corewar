@@ -6,14 +6,14 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/22 14:53:35 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:06:00 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/07 19:15:48 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
 
-intmax_t	label_size(t_code *label, t_code *op, int direction)
+intmax_t	label_size(t_code *label, t_code *op, int direction, int size)
 {
 	intmax_t	len;
 	t_code		*op_tmp;
@@ -38,10 +38,10 @@ intmax_t	label_size(t_code *label, t_code *op, int direction)
 			op_tmp = op_tmp->next;
 		}
 	}
-	return (op->op.dir_size ? ft_bswap_int16(len) : ft_bswap_int32(len));
+	return (size == 2 ? ft_bswap_int16(len) : ft_bswap_int32(len));
 }
 
-int			handle_label(t_asm *env, t_code *code, int i)
+int			handle_label(t_asm *env, t_code *code, int i, int size)
 {
 	char		*tmp;
 	t_code		*list;
@@ -57,9 +57,9 @@ int			handle_label(t_asm *env, t_code *code, int i)
 			if (ft_strequ((tmp + 1), list->token))
 			{
 				if (list->line_nb <= code->line_nb)
-					code->params[i] = label_size(list, code, 1);
+					code->params[i] = label_size(list, code, 1, size);
 				else
-					code->params[i] = label_size(list, code, -1);
+					code->params[i] = label_size(list, code, -1, size);
 				return (1);
 			}
 		}
@@ -71,7 +71,7 @@ int			handle_label(t_asm *env, t_code *code, int i)
 int			handle_direct(t_asm *env, t_code *code, int i)
 {
 	if (code->raw_params[i][1] == LABEL_CHAR)
-		return (handle_label(env, code, i));
+		return (handle_label(env, code, i, (code->op.dir_size ? 2 : 4)));
 	if (ft_str_is_numeric(code->raw_params[i] + 1))
 	{
 		code->params[i] = ft_atoi(code->raw_params[i] + 1);
@@ -88,7 +88,7 @@ int			handle_direct(t_asm *env, t_code *code, int i)
 int			handle_indirect(t_asm *env, t_code *code, int i)
 {
 	if (code->raw_params[i][0] == LABEL_CHAR)
-		return (handle_label(env, code, i));
+		return (handle_label(env, code, i, 2));
 	if (ft_str_is_numeric(code->raw_params[i]))
 		code->params[i] = ft_bswap_int16(ft_atoi(code->raw_params[i]));
 	else

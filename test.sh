@@ -30,9 +30,7 @@ do
 	if [ -f test/zazasm/dump/$file ] && [ -f test/myasm/dump/$file ]; then
 		diff test/zazasm/dump/$file test/myasm/dump/$file >> test/result/$file
 	fi
-	## Compare les 2 premieres lignes du fichier de resultat
-	tmp1=`head test/result/$file | tr '\n' '|' | cut -d '|' -f 1`
-	tmp2=`head test/result/$file | tr '\n' '|' | cut -d '|' -f 2`
+	## Compare les resultats
 	if [ -f test/zazasm/${file}.cor ] && [ -f test/myasm/${file}.cor ]; then
 		echo "${Green}$file ✅${Reset}"
 	elif [ -f test/zazasm/${file}.cor ]; then

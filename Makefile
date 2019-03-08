@@ -6,7 +6,7 @@
 #    By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/07 17:49:02 by quruiz       #+#   ##    ##    #+#        #
-#    Updated: 2019/03/07 17:51:11 by quruiz      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/08 16:00:20 by quruiz      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,22 +23,22 @@ OBJ = $(SRC:.c=.o)
 all: lib $(NAME)
 
 %.o: %.c $(HEADER)
-				gcc $(FLAG) -c $< -o $@
+				@gcc $(FLAG) -c $< -o $@
 
 lib:
-				make -C libft
+				@make -C libft
 
 $(NAME): $(OBJ) $(LIBFT)
-				gcc $(FLAG) $(OBJ) $(LIBFT) -o $(NAME)
+				@gcc $(FLAG) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
-				make clean -C libft/
-				rm -f $(OBJ)
+				@make clean -C libft/
+				@rm -f $(OBJ)
 
 fclean: clean
-				rm -rf $(NAME).dSYM/
-				make fclean -C libft/
-				rm -f $(NAME)
+				@rm -rf $(NAME).dSYM/
+				@make fclean -C libft/
+				@rm -f $(NAME)
 
 git: fclean
 				@read -ep "Files to commit: " file && git add $$file

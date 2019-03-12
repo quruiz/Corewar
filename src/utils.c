@@ -6,25 +6,12 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/07 20:36:28 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 17:13:19 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
-
-int		read_file(t_asm *env, char **line)
-{
-	while (get_next_line(env->input_fd, line))
-	{
-		env->line_nb++;
-		if (ft_str_is_empty(*line) || **line == COMMENT_CHAR)
-			ft_strdel(line);
-		else
-			return (1);
-	}
-	return (0);
-}
 
 int		check_extension(char *file)
 {

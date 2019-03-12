@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/07 18:16:16 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 18:43:58 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,6 @@
 # define ASM_H
 
 # include "op.h"
-# include "error.h"
 # include "../libft/libft/libft.h"
 
 # define PROG_NAME	env->header->prog_name
@@ -74,6 +73,7 @@ int					get_header(t_asm *env);
 int					get_cmd(t_asm *env);
 char				*get_label(t_asm *env, char *line);
 int					get_op(t_asm *env, char *line);
+int					parse_file(t_asm *env);
 
 /*
 **	Compilation

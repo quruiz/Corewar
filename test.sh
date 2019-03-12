@@ -32,11 +32,11 @@ do
 	fi
 	## Compare les resultats
 	if [ -f test/zazasm/${file}.cor ] && [ -f test/myasm/${file}.cor ]; then
-		echo "${Green}$file ✅${Reset}"
+		echo "${Green}$f ✅${Reset}"
 	elif [ -f test/zazasm/${file}.cor ]; then
-		echo "${Red}$file ❌${Reset}"
+		echo "${Red}$f ❌${Reset}"
 	else
-		echo "${Yellow}$file ⚠️${Reset}"
+		echo "${Yellow}$f ⚠️${Reset}"
 		# echo "${Green}$file ✅${Reset}"
 	fi
 done

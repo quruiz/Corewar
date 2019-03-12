@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 21:00:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/07 20:33:31 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 18:39:05 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,6 @@ char	*read_more(t_asm *env, char **line, char *cmd, int limit)
 		*line = ft_conncat(*line, "\n", len_line, 1);
 		*line = ft_conncat(*line, tmp, len_line + 1, len_tmp);
 		len_tmp++;
-		// len_tmp += ((!ft_strchr((*line + (len_line - len_tmp)), '"')) ? 1 : 0);
 		len_line += len_tmp;
 		len_token += len_tmp;
 		free(tmp);

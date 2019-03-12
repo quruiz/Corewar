@@ -6,14 +6,14 @@
 #    By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/07 17:49:02 by quruiz       #+#   ##    ##    #+#        #
-#    Updated: 2019/03/08 16:00:20 by quruiz      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/11 16:54:02 by quruiz      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = asm
 LIBFT = libft/libft.a
-HEADER = include/asm.h include/error.h include/op.h
+HEADER = include/asm.h include/op.h
 FLAG = -Werror -Wall -Wextra -ggdb
 SRC = src/asm.c src/destructor.c src/encode.c src/error.c src/get_header.c \
 	src/get_label.c src/get_op.c src/handlers.c src/op.c src/utils.c \

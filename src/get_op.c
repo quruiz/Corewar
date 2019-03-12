@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:38:03 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 16:39:10 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ t_code		*detect_param(t_asm *env, char **param, int op)
 			save_size_param(T_REG, &tmp, i);
 		else if (param[i][0] == DIRECT_CHAR && (g_op_tab[op].arg[i] & T_DIR))
 			save_size_param(T_DIR, &tmp, i);
-		else if ((ft_isdigit(param[i][0]) || param[i][0] == LABEL_CHAR) &&
+		else if ((ft_str_is_numeric(param[i]) || param[i][0] == LABEL_CHAR) &&
 			(g_op_tab[op].arg[i] & T_IND))
 			save_size_param(T_IND, &tmp, i);
 		else

@@ -6,13 +6,12 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 14:44:24 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 16:51:34 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/asm.h"
-#include "../include/error.h"
 
 int		err_code(int code, char *token, t_asm *env)
 {

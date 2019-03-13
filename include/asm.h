@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 18:43:58 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 19:01:37 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,8 +70,8 @@ typedef struct		s_code
 int					check_file(t_asm **env, char **arg);
 int					read_file(t_asm *env, char **line);
 int					get_header(t_asm *env);
-int					get_cmd(t_asm *env);
-char				*get_label(t_asm *env, char *line);
+int					get_cmd(t_asm *env, char **line);
+int					get_label(t_asm *env, char *line);
 int					get_op(t_asm *env, char *line);
 int					parse_file(t_asm *env);
 

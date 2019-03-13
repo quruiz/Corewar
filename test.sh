@@ -10,6 +10,8 @@ Yellow='\033[0;33m'       # Yellow
 myasm=asm
 zazasm=ressources/vm_champs/asm
 
+mkdir -p test/{myasm,zazasm,result}/dump
+
 for f in `find . -type f -name "*.s"`
 do
 	## Stocke le nom sans path ni extension
@@ -28,7 +30,7 @@ do
 	fi
 	## Test l'existence des 2 fichiers .cor puis fais un diff
 	if [ -f test/zazasm/dump/$file ] && [ -f test/myasm/dump/$file ]; then
-		diff test/zazasm/dump/$file test/myasm/dump/$file >> test/result/$file
+		diff test/zazasm/dump/$file test/myasm/dump/$file >> test/result/dump/$file
 	fi
 	## Compare les resultats
 	if [ -f test/zazasm/${file}.cor ] && [ -f test/myasm/${file}.cor ]; then

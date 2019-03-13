@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 16:39:10 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 20:26:34 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,7 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	int		i;
 
 	i = 0;
-	while (!isprint(line[cursor]))
+	while (!ft_isprint(line[cursor]))
 		cursor++;
 	param = ft_strsplit_trim(line + cursor, SEPARATOR_CHAR);
 	while (i < g_op_tab[op_code].nb_param && param[i] &&
@@ -110,8 +110,10 @@ int			get_op(t_asm *env, char *line)
 
 	cursor = 0;
 	op = 0;
-	while (isalpha(line[cursor]))
+	while (ft_isalpha(line[cursor]))
 		cursor++;
+	if (!cursor)
+		return (err_code(SYNTAX_ERROR, NULL, env));
 	while (op < 16)
 	{
 		if (ft_strnequ(line, g_op_tab[op].name, cursor))
@@ -121,6 +123,6 @@ int			get_op(t_asm *env, char *line)
 	if (op == 16)
 		return (err_code(SYNTAX_ERROR, NULL, env));
 	if (!parse_op(env, line, cursor, op))
-		return (ft_free_line(&line, 0));
-	return (ft_free_line(&line, 1));
+		return (0);
+	return (1);
 }

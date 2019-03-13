@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 18:21:33 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/08 13:28:39 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 20:43:55 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,7 @@ int				ft_intlen(intmax_t nb);
 char			*ft_str_realloc(char *str, size_t size);
 int				ft_isupper(int c);
 int				ft_islower(int c);
+int				ft_isnotprint(int c);
 int				ft_str_is_alpha(char *str);
 int				ft_str_is_lowercase(char *str);
 int				ft_str_is_uppercase(char *str);

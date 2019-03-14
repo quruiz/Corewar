@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 17:11:43 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/13 20:59:34 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/14 19:21:39 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int		parse_file(t_asm *env)
 	while (read_file(env, &line))
 	{
 		if (!get_cmd(env, &line))
-			return (0);
+			return (ft_free_line(&line, 0));
 		ft_strdel(&line);
 	}
 	if (!line)

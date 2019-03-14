@@ -23,7 +23,7 @@ do
 		mv ${f%.s}.cor test/zazasm/
 	fi
 	## Commpile le champion avec mon asm et stocke la sortie dans un fichier
-	./$myasm $f >> test/result/$file
+	valgrind --leak-check=full ./$myasm $f >> test/result/$file 2>&1
 	if [ -f ${f%.s}.cor ]; then
 		hexdump -Cv ${f%.s}.cor >> test/myasm/dump/$file
 		mv ${f%.s}.cor test/myasm/

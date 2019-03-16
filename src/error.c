@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/11 16:51:34 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/16 19:12:36 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ int		err_code(int code, char *token, t_asm *env)
 	else if (code == SIZE_ERROR)
 		printf("%s too long\n", token);
 	else if (code == SYNTAX_ERROR)
-		printf("Syntax error at line %.3d\n", env->line_nb);
+		printf("Lexical error at line %.3d\n", env->line_nb);
 	else if (code == INVALID_PARAM)
 		printf("Invalid parameter for %s at line %.3d\n", token, env->line_nb);
 	else if (code == NO_TOKEN)

@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 21:00:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 18:39:05 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/16 19:05:11 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,28 +16,26 @@
 char	*read_more(t_asm *env, char **line, char *cmd, int limit)
 {
 	char	*tmp;
-	int		len_line;
-	int		len_tmp;
-	int		len_token;
+	int		len[3];
 
-	len_line = ft_strlen(*line);
-	len_token = ft_strlen(ft_strchr(*line, '"') + 1);
+	len[0] = ft_strlen(*line);
+	len[1] = ft_strlen(ft_strchr(*line, '"') + 1);
 	while (get_next_line(env->input_fd, &tmp))
 	{
 		env->line_nb++;
-		len_tmp = ft_strlen(tmp);
-		*line = ft_conncat(*line, "\n", len_line, 1);
-		*line = ft_conncat(*line, tmp, len_line + 1, len_tmp);
-		len_tmp++;
-		len_line += len_tmp;
-		len_token += len_tmp;
+		len[2] = ft_strlen(tmp);
+		*line = ft_conncat(*line, "\n", len[0], 1);
+		*line = ft_conncat(*line, tmp, len[0] + 1, len[2]);
+		len[2]++;
+		len[0] += len[2];
+		len[1] += len[2];
 		free(tmp);
-		if (len_token > limit)
+		if (len[1] > limit)
 		{
 			free(*line);
 			return (err_code(SIZE_ERROR, cmd, env) ? NULL : NULL);
 		}
-		if (ft_strchr((*line + (len_line - len_tmp)), '"'))
+		if (ft_strchr((*line + (len[0] - len[2])), '"'))
 			return (*line);
 	}
 	free(*line);

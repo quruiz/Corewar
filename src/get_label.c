@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:29 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/13 19:01:58 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/19 17:56:12 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,10 +39,7 @@ int		get_label(t_asm *env, char *line)
 		return (0);
 	tmp = ft_strchr(line, LABEL_CHAR);
 	if (!(new = ft_memalloc(sizeof(t_code))))
-	{
-		free(line);
 		return (err_code(MEM_ERROR, NULL, env) ? -1 : -1);
-	}
 	new->type = 1;
 	new->line_nb = env->line_nb;
 	new->token = ft_strsub(line, 0, (tmp - line));

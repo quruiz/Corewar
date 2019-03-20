@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 17:11:43 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/14 19:21:39 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/19 18:01:12 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int		parse_file(t_asm *env)
 		return (0);
 	while (read_file(env, &line))
 	{
-		if (!get_cmd(env, &line))
+		if (!get_cmd(env, line))
 			return (ft_free_line(&line, 0));
 		ft_strdel(&line);
 	}
@@ -55,6 +55,7 @@ int		read_file(t_asm *env, char **line)
 	char	*tmp;
 	int		ret;
 
+	*line = NULL;
 	ret = get_next_line(env->input_fd, line);
 	env->line_nb++;
 	if (ft_str_is_empty(*line) || **line == COMMENT_CHAR ||
@@ -70,18 +71,18 @@ int		read_file(t_asm *env, char **line)
 	return (ret);
 }
 
-int		get_cmd(t_asm *env, char **line)
+int		get_cmd(t_asm *env, char *line)
 {
 	int decal;
 
-	decal = get_label(env, *line);
+	decal = get_label(env, line);
 	if (decal == -1)
 		return (0);
-	while (ft_isnotprint(*(*line + decal)))
+	while (ft_isnotprint(*(line + decal)))
 		decal++;
-	if (ft_str_is_empty(*line + decal))
+	if (ft_str_is_empty(line + decal))
 		return (1);
-	if (!get_op(env, (*line + decal)))
+	if (!get_op(env, (line + decal)))
 		return (0);
 	return (1);
 }

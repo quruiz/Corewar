@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/15 14:38:51 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/07 19:08:32 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/18 20:03:21 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,8 @@ int		encode_asm(t_asm *env)
 {
 	t_code	*tmp;
 
+	if (!env->code)
+		return (err_code(SYNTAX_ERROR, NULL, env));
 	tmp = env->code;
 	while (tmp)
 	{

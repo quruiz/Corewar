@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/19 17:53:38 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/21 20:19:36 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,10 +31,11 @@
 # define EMPTY_FILE		5
 # define SIZE_ERROR		6
 # define SYNTAX_ERROR	7
-# define INVALID_PARAM	8
-# define NO_TOKEN		9
-# define LEXICAL_ERROR	10
-# define NEW_LINE		11
+# define INVALID_OP		8
+# define INVALID_PARAM	9
+# define NO_TOKEN		10
+# define LEXICAL_ERROR	11
+# define NEW_LINE		12
 
 /*
 **	Structs

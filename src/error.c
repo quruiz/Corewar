@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/17 20:57:16 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/21 20:41:45 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,8 @@ int		err_code(int code, char *token, t_asm *env)
 		printf("%s too long\n", token);
 	else if (code == SYNTAX_ERROR)
 		printf("Syntax error at line %.3d\n", env->line_nb);
+	else if (code == INVALID_OP)
+		printf("Invalid instruction at line %.3d\n", env->line_nb);
 	else if (code == INVALID_PARAM)
 		printf("Invalid parameter for %s at line %.3d\n", token, env->line_nb);
 	else if (code == NO_TOKEN)
@@ -35,8 +37,6 @@ int		err_code(int code, char *token, t_asm *env)
 		printf("Lexical error at line %.3d\n", env->line_nb);
 	else if (code == NEW_LINE)
 		printf("File must end with a empty line\n");
-	else
-		printf("Unknown error\n");
 	if (env)
 		free_all(env);
 	return (0);

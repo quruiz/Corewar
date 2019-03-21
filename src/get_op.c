@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 20:59:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/13 20:26:34 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/21 20:48:14 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,8 +86,8 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 	int		i;
 
 	i = 0;
-	while (!ft_isprint(line[cursor]))
-		cursor++;
+	if (ft_str_is_empty(line + cursor))
+		return (err_code(SYNTAX_ERROR, g_op_tab[op_code].name, env));
 	param = ft_strsplit_trim(line + cursor, SEPARATOR_CHAR);
 	while (i < g_op_tab[op_code].nb_param && param[i] &&
 		!ft_str_is_empty(param[i]))
@@ -105,24 +105,27 @@ int			parse_op(t_asm *env, char *line, int cursor, int op_code)
 
 int			get_op(t_asm *env, char *line)
 {
-	int cursor;
-	int op;
+	char	*op;
+	int		cursor;
+	int		op_code;
 
 	cursor = 0;
-	op = 0;
+	op_code = 0;
 	while (ft_isalpha(line[cursor]))
 		cursor++;
 	if (!cursor)
-		return (err_code(SYNTAX_ERROR, NULL, env));
-	while (op < 16)
+		return (err_code(LEXICAL_ERROR, NULL, env));
+	op = ft_strsub(line, 0, cursor);
+	while (op_code < 16)
 	{
-		if (ft_strnequ(line, g_op_tab[op].name, cursor))
+		if (ft_strequ(op, g_op_tab[op_code].name))
 			break ;
-		op++;
+		op_code++;
 	}
-	if (op == 16)
-		return (err_code(SYNTAX_ERROR, NULL, env));
-	if (!parse_op(env, line, cursor, op))
+	ft_strdel(&op);
+	if (op_code == 16)
+		return (err_code(INVALID_OP, NULL, env));
+	if (!parse_op(env, line, cursor, op_code))
 		return (0);
 	return (1);
 }

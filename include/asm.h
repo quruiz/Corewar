@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 16:14:38 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/21 20:19:36 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/24 01:06:38 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,18 +24,16 @@
 **	Error codes
 */
 
-# define SUCCESS        1
-# define MEM_ERROR		2
-# define BAD_FILENAME	3
-# define ERROR_FILE		4
-# define EMPTY_FILE		5
-# define SIZE_ERROR		6
-# define SYNTAX_ERROR	7
-# define INVALID_OP		8
-# define INVALID_PARAM	9
-# define NO_TOKEN		10
-# define LEXICAL_ERROR	11
-# define NEW_LINE		12
+# define MEM_ERROR		1
+# define BAD_FILENAME	2
+# define ERROR_FILE		3
+# define SIZE_ERROR		4
+# define SYNTAX_ERROR	5
+# define INVALID_OP		6
+# define INVALID_PARAM	7
+# define NO_TOKEN		8
+# define LEXICAL_ERROR	9
+# define NEW_LINE		10
 
 /*
 **	Structs

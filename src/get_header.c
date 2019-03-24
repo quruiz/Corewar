@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/31 21:00:46 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/16 19:05:11 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/24 00:33:31 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,17 +100,28 @@ int		parse_comment(t_asm *env, char **line, char *dest)
 
 int		get_header(t_asm *env)
 {
+	int		i;
 	char	*line;
 
+	i = 0;
 	ft_bzero(&env->header, sizeof(t_header));
 	env->header.magic = ft_bswap_int32(COREWAR_EXEC_MAGIC);
-	read_file(env, &line);
-	if (!parse_name(env, &line, env->header.prog_name))
-		return (ft_free_line(&line, 0));
-	ft_strdel(&line);
-	read_file(env, &line);
-	if (!parse_comment(env, &line, env->header.comment))
-		return (ft_free_line(&line, 0));
-	ft_strdel(&line);
+	while (i < 2)
+	{
+		if (read_file(env, &line))
+		{
+			if (!i && !parse_name(env, &line, env->header.prog_name))
+				return (ft_free_line(&line, 0));
+			if (i && !parse_comment(env, &line, env->header.comment))
+				return (ft_free_line(&line, 0));
+		}
+		else
+		{
+			ft_strdel(&line);
+			return (err_code(SYNTAX_ERROR, NULL, env));
+		}
+		ft_strdel(&line);
+		i++;
+	}
 	return (1);
 }

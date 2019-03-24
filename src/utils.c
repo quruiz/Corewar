@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 21:29:23 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 17:13:19 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/24 00:35:46 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,9 +35,6 @@ int		check_file(t_asm **env, char **arg)
 	(*env)->line_nb = 0;
 	if ((*env)->input_fd == -1)
 		return (err_code(ERROR_FILE, NULL, *env));
-	if (lseek((*env)->input_fd, 0, SEEK_END) == 0)
-		return (err_code(EMPTY_FILE, NULL, *env));
-	lseek((*env)->input_fd, 0, SEEK_SET);
 	return (1);
 }
 

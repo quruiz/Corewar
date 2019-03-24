@@ -6,7 +6,7 @@
 /*   By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 17:21:02 by quruiz       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/21 20:41:45 by quruiz      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/24 01:06:06 by quruiz      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,6 @@ int		err_code(int code, char *token, t_asm *env)
 		printf("Usage: ./asm <file>.s\n");
 	else if (code == ERROR_FILE)
 		printf("Can't read or create file\n");
-	else if (code == EMPTY_FILE)
-		printf("Empty source file\n");
 	else if (code == SIZE_ERROR)
 		printf("%s too long\n", token);
 	else if (code == SYNTAX_ERROR)

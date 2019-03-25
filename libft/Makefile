@@ -6,13 +6,14 @@
 #    By: quruiz <quruiz@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/18 12:41:18 by quruiz       #+#   ##    ##    #+#        #
-#    Updated: 2019/03/13 20:44:23 by quruiz      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/25 18:03:25 by quruiz      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = libft.a
 FLAG = -Werror -Wall -Wextra
+HEADER = libft/libft.h get_next_line/get_next_line.h
 LIBFT_SRC = ft_atoi.c ft_bzero.c ft_conncat.c ft_intlen.c ft_isalnum.c \
 	ft_isalpha.c ft_isascii.c ft_isdigit.c ft_islower.c ft_isprint.c \
 	ft_isupper.c ft_itoa.c ft_itoa_base.c ft_lstadd.c ft_lstdel.c \
@@ -35,7 +36,6 @@ LIBFT_SRC = ft_atoi.c ft_bzero.c ft_conncat.c ft_intlen.c ft_isalnum.c \
 	ft_uintlen.c ft_split_whitespaces.c ft_bswap_int32.c ft_bswap_int16.c \
 	ft_str_is_empty.c ft_strsplit_trim.c ft_isnotprint.c
 GNL_SRC = get_next_line/get_next_line.c
-HEADER = libft/libft.h get_next_line/get_next_line.h
 SRC = $(addprefix libft/, $(LIBFT_SRC)) $(GNL_SRC)
 OBJ = $(SRC:.c=.o)
 
